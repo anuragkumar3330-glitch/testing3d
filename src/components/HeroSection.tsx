@@ -93,11 +93,7 @@ export const HeroSection = () => {
     goTo(next);
   }, [activeIndex, goTo]);
 
-  const goPrev = useCallback(() => {
-    const prev = (activeIndex - 1 + services.length) % services.length;
-    // When going backwards via arrow/button, start at 0, but during scrub we handle it manually
-    goTo(prev);
-  }, [activeIndex, goTo]);
+
 
   // Autoplay progression when a video ends natively
   const handleVideoEnded = useCallback((index: number) => {
