@@ -1,0 +1,332 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&family=Source+Sans+3:wght@300;400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Lexend", "Source Sans 3", -apple-system, BlinkMacSystemFont, sans-serif;
+  --color-emons-red: #e30613;
+  --color-emons-coral: #ff5348;
+  --color-emons-peach: #ffb19d;
+  --color-emons-ink: #101010;
+  --color-emons-muted: #565656;
+  --color-emons-line: #ece6e1;
+  --color-emons-cream: #f5f2ee;
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: #f5f2ee;
+  color: #101010;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f5f2ee;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ff5348;
+  border-radius: 999px;
+}
+
+a,
+button {
+  cursor: pointer;
+}
+
+.pill-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 38px;
+  padding: 9px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: transform 220ms ease, background 220ms ease, color 220ms ease, box-shadow 220ms ease;
+}
+
+.pill-btn-red {
+  background: #ff5348;
+  color: #fff;
+  box-shadow: 0 10px 26px rgba(227, 6, 19, 0.18);
+}
+
+.pill-btn-red:hover {
+  background: #e30613;
+  transform: translateY(-1px);
+}
+
+.pill-btn-peach {
+  background: #ffb19d;
+  color: #101010;
+}
+
+.pill-btn-peach:hover {
+  background: #ffc0af;
+  transform: translateY(-1px);
+}
+
+.pill-arrow {
+  display: inline-flex;
+  width: 28px;
+  height: 28px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.22);
+  transition: transform 220ms ease;
+}
+
+.pill-btn:hover .pill-arrow {
+  transform: translateX(3px);
+}
+
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #e30613;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 7px 12px;
+  border: 1px solid #f3cbc4;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.74);
+}
+
+.section-label::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: #ff5348;
+}
+
+.emons-glass {
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.64);
+  box-shadow: 0 18px 50px rgba(34, 24, 20, 0.13);
+  backdrop-filter: blur(18px);
+}
+
+@keyframes markerPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.55), 0 16px 35px rgba(0, 0, 0, 0.1);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 0 14px rgba(255, 255, 255, 0), 0 16px 35px rgba(0, 0, 0, 0.1);
+    transform: scale(1.05);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0), 0 16px 35px rgba(0, 0, 0, 0.1);
+    transform: scale(1);
+  }
+}
+
+.plus-marker {
+  display: inline-flex;
+  width: 42px;
+  height: 42px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  color: #101010;
+  font-size: 22px;
+  line-height: 1;
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.12);
+  animation: markerPulse 2.4s infinite ease-in-out;
+  transition: transform 220ms ease, background 220ms ease, color 220ms ease;
+}
+
+.plus-marker:hover {
+  transform: scale(1.12);
+  background: #ff5348;
+  color: #fff;
+  animation: none;
+}
+
+.hero-video {
+  filter: saturate(1.03) contrast(1.02);
+}
+
+.bottom-nav-item {
+  display: inline-flex;
+  min-width: 44px;
+  height: 34px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 0 11px;
+  border-radius: 4px;
+  background: #ffb19d;
+  color: #e30613;
+  font-size: 13px;
+  font-weight: 600;
+  transition: transform 220ms ease, background 220ms ease, color 220ms ease;
+}
+
+.bottom-nav-item.active,
+.bottom-nav-item:hover {
+  background: #ff5348;
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.progress-track {
+  width: 100%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.7);
+  position: relative;
+}
+
+.progress-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.85);
+  position: absolute;
+  top: -2px;
+  transform: translateX(-50%);
+  transition: background 240ms ease, transform 240ms ease;
+}
+
+.progress-dot.active {
+  background: #ff5348;
+  transform: translateX(-50%) scale(1.25);
+}
+
+.hero-progress-segment {
+  transition: height 180ms ease;
+}
+
+.hero-progress-segment:hover {
+  height: 5px !important;
+}
+
+.service-card {
+  position: relative;
+  overflow: hidden;
+  min-height: 310px;
+  border: 1px solid #eee0d9;
+  border-radius: 0;
+  background: #fff;
+  transition: transform 260ms ease, background 260ms ease, color 260ms ease, border-color 260ms ease;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  background: #ff5348;
+  color: #fff;
+  border-color: #ff5348;
+}
+
+.service-card img {
+  transition: transform 320ms ease, filter 260ms ease;
+}
+
+.service-card:hover img {
+  transform: translateY(-8px) scale(1.06);
+  filter: brightness(0) invert(1);
+}
+
+.service-card .card-arrow {
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: opacity 240ms ease, transform 240ms ease;
+}
+
+.service-card:hover .card-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.news-thumb {
+  overflow: hidden;
+}
+
+.news-thumb img {
+  transition: transform 450ms ease;
+}
+
+.news-thumb:hover img,
+.group:hover .news-thumb img {
+  transform: scale(1.05);
+}
+
+.hide-scrollbar {
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeInUp 760ms ease forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 1ms !important;
+  }
+}
+
+/* Hide native browser video controls, play overlays, and widgets completely */
+video::-webkit-media-controls {
+  display: none !important;
+}
+video::-webkit-media-controls-play-button,
+video::-webkit-media-controls-start-playback-button,
+video::-webkit-media-controls-panel,
+video::-webkit-media-controls-enclosure {
+  display: none !important;
+  -webkit-appearance: none;
+}
+video::-picture-in-picture-control {
+  display: none !important;
+}
+
