@@ -4,9 +4,7 @@ import { WelcomeSection } from './components/WelcomeSection';
 import { ServicesGrid } from './components/ServicesGrid';
 import { StatsSection } from './components/StatsSection';
 import { NewsSection } from './components/NewsSection';
-import { CertificationsSection } from './components/CertificationsSection';
-import { ReviewsSection } from './components/ReviewsSection';
-import { CTABanner } from './components/CTABanner';
+import { GlobeSection } from './components/GlobeSection';
 import { Footer } from './components/Footer';
 
 function App() {
@@ -19,9 +17,7 @@ function App() {
         <ServicesGrid />
         <StatsSection />
         <NewsSection />
-        <ReviewsSection />
-        <CertificationsSection />
-        <CTABanner />
+        <GlobeSection />
         <Footer />
       </div>
 
