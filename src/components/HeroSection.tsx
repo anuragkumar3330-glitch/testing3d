@@ -44,75 +44,141 @@ const services = [
   },
 ];
 
+const TOTAL_FRAMES = 1205;
+const FRAMES_PER_SERVICE = TOTAL_FRAMES / services.length;
+
 export const HeroSection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [popupOpen, setPopupOpen] = useState(false);
   const [videoProgress, setVideoProgress] = useState(0);
 
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
   
-  const currentVideoTime = useRef(0);
-  const targetVideoTime = useRef(0);
-  const videoDuration = useRef(10); // Default, updated on load
+  const currentFrameRef = useRef(1);
+  const targetFrame = useRef(1);
+  const imageCache = useRef<Map<number, HTMLImageElement>>(new Map());
   const requestRef = useRef<number | undefined>(undefined);
   const lastTimeRef = useRef<number | undefined>(undefined);
   const lastInteractionTime = useRef<number>(0);
+
+  const getFramePath = (frame: number) => {
+    return `/frames/${String(frame).padStart(5, '0')}.png`;
+  };
+
+  const preloadImages = useCallback((startFrame: number, count: number) => {
+    for (let i = startFrame; i < startFrame + count && i <= TOTAL_FRAMES; i++) {
+      if (!imageCache.current.has(i)) {
+        const img = new Image();
+        img.src = getFramePath(i);
+        imageCache.current.set(i, img);
+      }
+    }
+  }, []);
+
+  const drawFrame = useCallback((frame: number) => {
+    const canvas = canvasRef.current;
+    const ctx = canvas?.getContext('2d');
+    if (!canvas || !ctx) return;
+
+    const img = imageCache.current.get(frame);
+    if (img && img.complete) {
+      const parent = canvas.parentElement;
+      if (parent) {
+        const dpr = window.devicePixelRatio || 1;
+        const rect = parent.getBoundingClientRect();
+        const displayWidth = Math.round(rect.width * dpr);
+        const displayHeight = Math.round(rect.height * dpr);
+
+        if (canvas.width !== displayWidth || canvas.height !== displayHeight) {
+          canvas.width = displayWidth;
+          canvas.height = displayHeight;
+          canvas.style.width = `${rect.width}px`;
+          canvas.style.height = `${rect.height}px`;
+        }
+      }
+
+      const { width, height } = canvas;
+      const imgRatio = img.width / img.height;
+      const canvasRatio = width / height;
+
+      let drawWidth, drawHeight, offsetX, offsetY;
+      if (canvasRatio > imgRatio) {
+        drawWidth = width;
+        drawHeight = width / imgRatio;
+        offsetX = 0;
+        offsetY = (height - drawHeight) / 2;
+      } else {
+        drawWidth = height * imgRatio;
+        drawHeight = height;
+        offsetX = (width - drawWidth) / 2;
+        offsetY = 0;
+      }
+      ctx.clearRect(0, 0, width, height);
+      ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+    } else if (!img) {
+      const newImg = new Image();
+      newImg.src = getFramePath(frame);
+      newImg.onload = () => {
+        if (Math.round(currentFrameRef.current) === frame) {
+          drawFrame(frame);
+        }
+      };
+      imageCache.current.set(frame, newImg);
+    }
+  }, []);
 
   const render = useCallback((time: number) => {
     if (lastTimeRef.current === undefined) {
       lastTimeRef.current = time;
     }
-    const dt = Math.min(time - lastTimeRef.current, 50);
+    const dt = Math.min(time - lastTimeRef.current, 50); // Cap at 50ms to prevent jumps
     lastTimeRef.current = time;
 
-    const duration = videoDuration.current || 10;
-    
     // Autoplay when at top and popup is closed, and user hasn't interacted recently
     const timeSinceInteraction = time - lastInteractionTime.current;
     if (!popupOpen && window.scrollY <= 10 && timeSinceInteraction > 1500) {
-       targetVideoTime.current += (dt / 1000) * 1.5; // Autoplay speed multiplier
+       targetFrame.current += (dt * 0.035);
        
-       if (targetVideoTime.current >= duration) {
-         targetVideoTime.current = 0;
-         currentVideoTime.current = 0; 
-         if (videoRef.current) {
-            videoRef.current.currentTime = 0;
-         }
+       if (targetFrame.current >= TOTAL_FRAMES) {
+         targetFrame.current = 1;
+         currentFrameRef.current = 1; // Instant snap back to start
+       }
+       
+       const currentInt = Math.round(targetFrame.current);
+       if (currentInt % 10 === 0) {
+         preloadImages(currentInt, 20);
        }
     }
 
-    const diff = targetVideoTime.current - currentVideoTime.current;
+    const diff = targetFrame.current - currentFrameRef.current;
     
-    let newTime = currentVideoTime.current;
-    const TIME_PER_SERVICE = duration / services.length;
-    
-    if (Math.abs(diff) > TIME_PER_SERVICE) {
-       newTime += diff * 0.25;
-    } else if (Math.abs(diff) > 0.05) {
-       newTime += diff * 0.15;
+    let newFrame = currentFrameRef.current;
+    if (Math.abs(diff) > FRAMES_PER_SERVICE) {
+       newFrame += diff * 0.25;
+    } else if (Math.abs(diff) > 0.1) {
+       newFrame += diff * 0.15;
     } else {
-       newTime = targetVideoTime.current;
+      newFrame = targetFrame.current;
     }
 
-    if (newTime !== currentVideoTime.current && videoRef.current) {
-      currentVideoTime.current = newTime;
-      // Scrub video
-      videoRef.current.currentTime = newTime;
+    if (newFrame !== currentFrameRef.current) {
+      currentFrameRef.current = newFrame;
+      drawFrame(Math.round(newFrame));
 
       const newActiveIndex = Math.min(
         services.length - 1,
-        Math.max(0, Math.floor(newTime / TIME_PER_SERVICE))
+        Math.max(0, Math.floor((Math.round(newFrame) - 1) / FRAMES_PER_SERVICE))
       );
 
       setActiveIndex(newActiveIndex);
 
-      const timeInService = newTime - (newActiveIndex * TIME_PER_SERVICE);
-      setVideoProgress(Math.max(0, Math.min(1, timeInService / TIME_PER_SERVICE)));
+      const frameInService = newFrame - (newActiveIndex * FRAMES_PER_SERVICE);
+      setVideoProgress(Math.max(0, Math.min(1, frameInService / FRAMES_PER_SERVICE)));
     }
 
     requestRef.current = requestAnimationFrame(render);
-  }, [popupOpen]);
+  }, [drawFrame, popupOpen, preloadImages]);
 
   useEffect(() => {
     requestRef.current = requestAnimationFrame(render);
@@ -121,34 +187,51 @@ export const HeroSection = () => {
     };
   }, [render]);
 
-  const handleLoadedMetadata = () => {
-    if (videoRef.current) {
-      videoDuration.current = videoRef.current.duration;
-    }
-  };
+  useEffect(() => {
+    preloadImages(1, 40);
+    const checkFirstFrame = setInterval(() => {
+      const img = imageCache.current.get(1);
+      if (img && img.complete) {
+        drawFrame(1);
+        clearInterval(checkFirstFrame);
+      }
+    }, 50);
+    return () => clearInterval(checkFirstFrame);
+  }, [preloadImages, drawFrame]);
+
+  useEffect(() => {
+    const handleResize = () => drawFrame(Math.round(currentFrameRef.current));
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [drawFrame]);
 
   // Wheel scrubbing
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
       if (window.scrollY > 0) return;
 
-      const duration = videoDuration.current;
-      if (e.deltaY < 0 && targetVideoTime.current <= 0) return;
-      if (e.deltaY > 0 && targetVideoTime.current >= duration) return;
+      if (e.deltaY < 0 && targetFrame.current <= 1) return;
+      if (e.deltaY > 0 && targetFrame.current >= TOTAL_FRAMES) return;
 
       e.preventDefault();
       lastInteractionTime.current = performance.now();
 
-      // Convert delta to seconds
-      const timeDelta = e.deltaY * 0.005;
-      let newTarget = targetVideoTime.current + timeDelta;
-      newTarget = Math.max(0, Math.min(duration, newTarget));
-      targetVideoTime.current = newTarget;
+      const frameDelta = e.deltaY * 0.4;
+      let newTarget = targetFrame.current + frameDelta;
+      newTarget = Math.max(1, Math.min(TOTAL_FRAMES, newTarget));
+      targetFrame.current = newTarget;
+
+      const currentInt = Math.round(newTarget);
+      if (frameDelta > 0) {
+        preloadImages(currentInt, 25);
+      } else {
+        preloadImages(Math.max(1, currentInt - 25), 25);
+      }
     };
 
     window.addEventListener('wheel', handleWheel, { passive: false });
     return () => window.removeEventListener('wheel', handleWheel);
-  }, []);
+  }, [preloadImages]);
 
   // Touch scrubbing
   useEffect(() => {
@@ -165,17 +248,23 @@ export const HeroSection = () => {
       const currentY = e.touches[0].clientY;
       const deltaY = lastY - currentY;
       
-      const duration = videoDuration.current;
-      if (deltaY < 0 && targetVideoTime.current <= 0) return;
-      if (deltaY > 0 && targetVideoTime.current >= duration) return;
+      if (deltaY < 0 && targetFrame.current <= 1) return;
+      if (deltaY > 0 && targetFrame.current >= TOTAL_FRAMES) return;
 
       e.preventDefault();
       lastInteractionTime.current = performance.now();
       
-      const timeDelta = deltaY * 0.02; 
-      let newTarget = targetVideoTime.current + timeDelta;
-      newTarget = Math.max(0, Math.min(duration, newTarget));
-      targetVideoTime.current = newTarget;
+      const frameDelta = deltaY * 1.5; 
+      let newTarget = targetFrame.current + frameDelta;
+      newTarget = Math.max(1, Math.min(TOTAL_FRAMES, newTarget));
+      targetFrame.current = newTarget;
+      
+      const currentInt = Math.round(newTarget);
+      if (frameDelta > 0) {
+        preloadImages(currentInt, 25);
+      } else {
+        preloadImages(Math.max(1, currentInt - 25), 25);
+      }
       
       lastY = currentY;
     };
@@ -187,15 +276,15 @@ export const HeroSection = () => {
       window.removeEventListener('touchstart', handleTouchStart);
       window.removeEventListener('touchmove', handleTouchMove);
     };
-  }, []);
+  }, [preloadImages]);
 
   const goTo = (index: number) => {
     if (index === activeIndex) return;
     lastInteractionTime.current = performance.now();
-    const TIME_PER_SERVICE = videoDuration.current / services.length;
-    const newTime = index * TIME_PER_SERVICE + 0.1; // Add small offset
-    targetVideoTime.current = newTime;
+    const newFrame = index * FRAMES_PER_SERVICE + 1;
+    targetFrame.current = newFrame;
     setPopupOpen(false);
+    preloadImages(newFrame, 30);
   };
 
   const current = services[activeIndex] || services[0];
@@ -205,17 +294,9 @@ export const HeroSection = () => {
     <section ref={sectionRef} className="relative h-screen w-full overflow-hidden">
       <div className="relative h-full w-full overflow-hidden bg-[#0a0a0a]">
         
-        {/* Scrubbing Video */}
+        {/* Canvas for image sequence */}
         <div className="absolute inset-0 w-full h-full" style={{ zIndex: 1 }}>
-          <video
-            ref={videoRef}
-            src="/Animation.mp4"
-            className="w-full h-full object-cover block"
-            muted
-            playsInline
-            preload="auto"
-            onLoadedMetadata={handleLoadedMetadata}
-          />
+          <canvas ref={canvasRef} className="w-full h-full object-cover block" />
         </div>
 
         {/* Gradient overlays */}
