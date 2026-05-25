@@ -79,8 +79,7 @@ export const ReviewsSection = () => {
   return (
     <section 
       ref={sectionRef} 
-      className="bg-[#101010] text-white border-b border-white/[0.06]" 
-      style={{ padding: '80px 48px' }}
+      className="bg-[#101010] text-white border-b border-white/[0.06] px-6 py-20 md:px-12 lg:px-[48px]"
     >
       <div className="w-full">
         
@@ -134,25 +133,25 @@ export const ReviewsSection = () => {
               >
                 {/* Review Card */}
                 <div 
-                  className="bg-[#131313] border border-white/[0.04] rounded-2xl p-8 sm:p-10 flex flex-col justify-between h-full"
-                  style={{ minHeight: '340px' }}
+                  className="bg-[#131313] border border-white/[0.04] rounded-2xl p-6 sm:p-10 flex flex-col items-center justify-center text-center h-full"
+                  style={{ minHeight: '360px' }}
                 >
-                  <div>
+                  <div className="flex flex-col items-center justify-center flex-grow w-full">
                     {/* Blue Quote Icon */}
                     <Quote 
                       size={36} 
-                      className="text-[#1e5194] transform rotate-180 mb-6"
+                      className="text-[#1e5194] transform rotate-180 mb-6 mx-auto"
                       style={{ fill: 'currentColor' }}
                     />
                     
                     {/* Review text */}
-                    <p className="text-[15px] sm:text-[16px] leading-[1.75] text-white/80 font-normal">
+                    <p className="text-[15px] sm:text-[16px] leading-[1.75] text-white/80 font-normal max-w-2xl mx-auto">
                       {rev.text}
                     </p>
                   </div>
 
                   {/* Author Area with Image Placeholder */}
-                  <div className="mt-8 flex items-center gap-4">
+                  <div className="mt-8 flex flex-col items-center gap-3">
                     {/* Styled Empty Circular Placeholder for user image */}
                     <div 
                       className="h-14 w-14 rounded-full border border-dashed border-white/20 bg-white/[0.02] flex-shrink-0 flex items-center justify-center text-[10px] text-white/30 uppercase tracking-widest"
@@ -161,7 +160,7 @@ export const ReviewsSection = () => {
                       Empty
                     </div>
                     
-                    <div>
+                    <div className="text-center">
                       <h4 className="text-[15px] font-semibold text-white leading-snug">
                         {rev.role}
                       </h4>
