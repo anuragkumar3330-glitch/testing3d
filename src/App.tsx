@@ -4,6 +4,7 @@ import { WelcomeSection } from './components/WelcomeSection';
 import { ServicesGrid } from './components/ServicesGrid';
 import { StatsSection } from './components/StatsSection';
 import { NewsSection } from './components/NewsSection';
+import { ReviewsSection } from './components/ReviewsSection';
 import { CTABanner } from './components/CTABanner';
 import { Footer } from './components/Footer';
 
@@ -17,6 +18,7 @@ function App() {
         <ServicesGrid />
         <StatsSection />
         <NewsSection />
+        <ReviewsSection />
         <CTABanner />
         <Footer />
       </div>
