@@ -43,9 +43,9 @@ export const WelcomeSection = () => {
           {/* Truck Image - Overlapping visually like emons.de */}
           <div className="relative w-full aspect-[4/3] sm:aspect-video lg:aspect-[4/3] -mx-5 sm:mx-0">
             <img 
-              src="/images/truck.png" 
+              src="/images/img.png" 
               alt="OSV FTWZ Truck" 
-              className="absolute -right-5 sm:-right-12 lg:-right-20 top-0 w-[120%] max-w-none object-contain drop-shadow-2xl" 
+              className="absolute -right-5 sm:-right-12 lg:-right-20 top-0 w-[120%] max-w-none object-contain drop-shadow-2xl mix-blend-multiply" 
             />
           </div>
           
