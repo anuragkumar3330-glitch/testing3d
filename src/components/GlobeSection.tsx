@@ -46,41 +46,52 @@ const Globe = ({ texturePath }: { texturePath: string }) => {
 
 // Canvas-based 3D Globe Wrapper
 const ThreeGlobe = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 800);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="w-full h-[350px] sm:h-[450px] md:h-[500px] relative">
-      <Suspense fallback={
-        <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#131313]/50 rounded-2xl border border-white/[0.04]">
+      {loading && (
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#131313]/50 rounded-2xl border border-white/[0.04] z-20 backdrop-blur-sm transition-opacity duration-500">
           <div className="h-10 w-10 animate-spin rounded-full border-2 border-t-transparent border-[#b9d522]" />
           <p className="mt-4 text-xs text-white/50 uppercase tracking-widest">Loading World Map...</p>
         </div>
-      }>
-        <Canvas 
-          camera={{ position: [0, 0, 5], fov: 60 }}
-          gl={{ antialias: true, alpha: true }}
-          style={{ background: 'transparent', width: '100%', height: '100%' }}
-        >
-          {/* Studio Lights */}
-          <ambientLight intensity={1.5} />
-          <directionalLight position={[5, 3, 5]} intensity={2.5} />
-          <directionalLight position={[-5, -3, -5]} intensity={1.0} color="#b9d522" />
-          <pointLight position={[10, 10, 10]} intensity={1.5} />
+      )}
 
+      <Canvas 
+        camera={{ position: [0, 0, 5], fov: 60 }}
+        gl={{ antialias: true, alpha: true }}
+        style={{ background: 'transparent', width: '100%', height: '100%' }}
+      >
+        {/* Studio Lights */}
+        <ambientLight intensity={1.5} />
+        <directionalLight position={[5, 3, 5]} intensity={2.5} />
+        <directionalLight position={[-5, -3, -5]} intensity={1.0} color="#b9d522" />
+        <pointLight position={[10, 10, 10]} intensity={1.5} />
+
+        <Suspense fallback={null}>
           <Globe texturePath="/images/1.webp" />
+        </Suspense>
 
-          {/* User Interactivity (Click and drag to spin globe) */}
-          <OrbitControls 
-            enableZoom={false} 
-            enablePan={false}
-            autoRotate={false}
-            rotateSpeed={0.8}
-            dampingFactor={0.05}
-            enableDamping={true}
-          />
-        </Canvas>
-      </Suspense>
+        {/* User Interactivity (Click and drag to spin globe) */}
+        <OrbitControls 
+          enableZoom={false} 
+          enablePan={false}
+          autoRotate={false}
+          rotateSpeed={0.8}
+          dampingFactor={0.05}
+          enableDamping={true}
+        />
+      </Canvas>
 
       {/* Interactive Helper Hint Overlay */}
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/60 border border-white/10 rounded-full px-4 py-1.5 flex items-center gap-2 pointer-events-none backdrop-blur-md">
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/60 border border-white/10 rounded-full px-4 py-1.5 flex items-center gap-2 pointer-events-none backdrop-blur-md z-10">
         <GlobeIcon size={14} className="text-[#b9d522] animate-pulse" />
         <span className="text-[11px] text-white/70 uppercase tracking-widest font-semibold">
           Drag to spin the globe
@@ -111,6 +122,7 @@ export const GlobeSection = () => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('animate-fade-in');
+            entry.target.classList.remove('opacity-0');
           }
         });
       },
@@ -131,7 +143,7 @@ export const GlobeSection = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           
           {/* Left Column: Content */}
-          <div className="reveal opacity-0 flex flex-col justify-center text-left">
+          <div className="flex flex-col justify-center text-left">
             <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#b9d522]">
               GLOBAL LOGISTICS NETWORK
             </span>
@@ -179,7 +191,7 @@ export const GlobeSection = () => {
           </div>
 
           {/* Right Column: 3D Interactive Globe Animation or 1.webp Fallback */}
-          <div className="reveal opacity-0 flex items-center justify-center">
+          <div className="flex items-center justify-center w-full">
             {webGlSupported ? (
               <ThreeGlobe />
             ) : (
