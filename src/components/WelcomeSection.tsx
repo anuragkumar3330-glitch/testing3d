@@ -41,11 +41,11 @@ export const WelcomeSection = () => {
         <div className="reveal opacity-0 flex flex-col gap-10 relative z-10">
           
           {/* Truck Image - Overlapping visually like emons.de */}
-          <div className="relative w-full aspect-[4/3] sm:aspect-video lg:aspect-[4/3] -mx-5 sm:mx-0">
+          <div className="relative w-full mb-8 lg:mb-0 lg:aspect-[4/3] flex justify-end">
             <img 
               src="/images/img.png" 
               alt="OSV FTWZ Truck" 
-              className="absolute -right-5 sm:-right-12 lg:-right-20 top-0 w-[120%] max-w-none object-contain drop-shadow-2xl mix-blend-multiply" 
+              className="relative lg:absolute lg:-right-20 lg:top-0 w-[110%] sm:w-[90%] lg:w-[120%] max-w-none object-contain drop-shadow-2xl translate-x-5 lg:translate-x-0" 
             />
           </div>
           
