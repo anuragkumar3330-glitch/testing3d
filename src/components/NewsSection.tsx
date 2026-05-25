@@ -329,13 +329,27 @@ export const NewsSection = () => {
 
         <div className="relative w-full">
           {/* Header left-aligned exactly like screenshot */}
-          <div className="reveal opacity-0 text-left" style={{ marginBottom: '52px' }}>
+          <div className="reveal opacity-0 text-left" style={{ marginBottom: '32px' }}>
             <span className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#b9d522]">
               FREQUENTLY ASKED QUESTIONS
             </span>
             <h2 className="mt-4 text-[36px] font-normal leading-[1.08] tracking-tight sm:text-[44px] md:text-[54px] text-white">
               Most Popular Questions
             </h2>
+          </div>
+
+          {/* Contact Expert CTA - Placed ABOVE the FAQs with gap */}
+          <div className="reveal opacity-0 mb-12 text-left max-w-[860px]">
+            <p className="text-[15px] font-semibold text-[#b9d522]">
+              Looking for answers to particular questions?{' '}
+              <a 
+                href="#connect-with-us" 
+                className="underline transition-colors hover:text-[#d4f02a]"
+              >
+                Contact
+              </a>{' '}
+              our experts now.
+            </p>
           </div>
 
           {/* Accordion container - left-aligned, maximum 860px width, no separator lines, only gap */}
@@ -386,19 +400,7 @@ export const NewsSection = () => {
             })}
           </div>
 
-          {/* Contact Expert CTA - Left Aligned in green to match screenshot exactly */}
-          <div className="reveal opacity-0 mt-20 text-left pt-6 max-w-[860px]">
-            <p className="text-[15px] font-semibold text-[#b9d522]">
-              Looking for answers to particular questions?{' '}
-              <a 
-                href="#connect-with-us" 
-                className="underline transition-colors hover:text-[#d4f02a]"
-              >
-                Contact
-              </a>{' '}
-              our experts now.
-            </p>
-          </div>
+
 
         </div>
       </section>
