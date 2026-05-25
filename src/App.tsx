@@ -2,7 +2,6 @@ import { Navbar } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
 import { WelcomeSection } from './components/WelcomeSection';
 import { ServicesGrid } from './components/ServicesGrid';
-import { AboutSection } from './components/AboutSection';
 import { StatsSection } from './components/StatsSection';
 import { NewsSection } from './components/NewsSection';
 import { CTABanner } from './components/CTABanner';
@@ -13,10 +12,9 @@ function App() {
     <div className="relative min-h-screen bg-[#f5f2ee] font-sans text-[#101010]">
       <Navbar />
       <HeroSection />
-      <div className="relative z-20 bg-[#f5f2ee]">
+      <div className="relative z-20 bg-[#f5f2ee]" style={{ marginTop: '55px' }}>
         <WelcomeSection />
         <ServicesGrid />
-        <AboutSection />
         <StatsSection />
         <NewsSection />
         <CTABanner />

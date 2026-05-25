@@ -1,4 +1,4 @@
-import { ArrowRight, Lightbulb, Menu, Search, X } from 'lucide-react';
+import { ArrowRight, Lightbulb, Menu, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 const navItems = ['Home', 'Who We Are', 'What We Do', 'Industries', 'Facilities', 'Connect With Us'];
@@ -6,6 +6,7 @@ const navItems = ['Home', 'Who We Are', 'What We Do', 'Industries', 'Facilities'
 export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
@@ -13,6 +14,16 @@ export const Navbar = () => {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const toggleTheme = () => {
+    const newMode = !isDarkMode;
+    setIsDarkMode(newMode);
+    if (newMode) {
+      document.documentElement.classList.add('dark-theme');
+    } else {
+      document.documentElement.classList.remove('dark-theme');
+    }
+  };
 
   return (
     <>
@@ -40,8 +51,14 @@ export const Navbar = () => {
         </div>
 
         <div className="hidden items-center gap-3 md:flex">
-          <button className="flex h-10 w-14 items-center justify-center rounded-[4px] bg-white/14 text-white backdrop-blur-md transition-colors duration-200 hover:bg-white/24" aria-label="Insights">
-            <Lightbulb size={22} />
+          <button 
+            onClick={toggleTheme}
+            className={`relative flex h-[36px] w-[64px] items-center rounded-full border p-1 transition-colors duration-300 shadow-inner ${isDarkMode ? 'bg-white border-black/20' : 'bg-[#101010] border-white/20'}`} 
+            aria-label="Theme toggle"
+          >
+            <div className={`flex h-7 w-7 items-center justify-center rounded-full shadow-sm transition-all duration-300 ${isDarkMode ? 'translate-x-[28px] bg-[#101010] text-white' : 'translate-x-0 bg-white text-[#101010]'}`}>
+              <Lightbulb size={16} />
+            </div>
           </button>
           <a href="#connect-with-us" className="pill-btn pill-btn-dark">
             Get A Callback
@@ -55,9 +72,6 @@ export const Navbar = () => {
               <ArrowRight size={14} />
             </span>
           </a>
-          <button className="flex h-10 w-10 items-center justify-center rounded-full text-white/90 transition-colors duration-200 hover:bg-white/16" aria-label="Search">
-            <Search size={18} />
-          </button>
         </div>
 
         <button

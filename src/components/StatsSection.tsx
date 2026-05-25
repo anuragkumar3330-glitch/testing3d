@@ -62,7 +62,7 @@ export const StatsSection = () => {
           if (entry.isIntersecting) entry.target.classList.add('animate-fade-in');
         });
       },
-      { threshold: 0.16 }
+      { threshold: 0.1 }
     );
     const elements = sectionRef.current?.querySelectorAll('.reveal');
     elements?.forEach((el) => observer.observe(el));
@@ -70,32 +70,39 @@ export const StatsSection = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="bg-[#101010] px-5 py-24 text-white md:px-12 lg:px-20">
-      <div className="mx-auto max-w-[1400px]">
-        <div className="reveal mb-14 grid grid-cols-1 gap-8 opacity-0 md:grid-cols-[0.9fr_1.1fr] md:items-end">
-          <div>
-            <span className="section-label border-white/18 bg-white/10 text-white">By the numbers</span>
-            <h2 className="mt-7 text-[42px] font-normal leading-[1.02] md:text-[66px]">
-              Scale that keeps trade moving.
-            </h2>
-          </div>
-          <p className="max-w-[620px] text-[17px] leading-[1.75] text-white/72">
-            OSV combines a legacy logistics network with FTWZ infrastructure, helping clients reduce delays, penalties, demurrage and needless tax friction.
-          </p>
+    <section ref={sectionRef} className="bg-[#101010] text-white" style={{ marginTop: '80px', padding: '80px 48px' }}>
+      
+      {/* Header */}
+      <div className="reveal mb-16 flex flex-col gap-6 opacity-0 lg:flex-row lg:items-end lg:justify-between">
+        <div className="max-w-[600px]">
+          <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#b9d522]">
+            By the numbers
+          </span>
+          <h2 className="mt-4 text-[36px] font-normal leading-[1.08] tracking-tight text-white sm:text-[44px] md:text-[54px]">
+            Scale that keeps<br />trade moving.
+          </h2>
         </div>
+        <p className="max-w-[440px] text-[15px] leading-[1.75] text-white/60 lg:text-right">
+          OSV combines a legacy logistics network with FTWZ infrastructure, helping clients reduce delays, penalties, demurrage and needless tax friction.
+        </p>
+      </div>
 
-        <div className="reveal grid grid-cols-1 border-l border-t border-white/12 opacity-0 sm:grid-cols-2 lg:grid-cols-3">
-          {stats.map((stat) => (
-            <div key={stat.label} className="min-h-[220px] border-b border-r border-white/12 p-7 transition-colors duration-200 hover:bg-white/8 md:p-9">
-              <p className="text-[56px] font-normal leading-none text-[#b9d522] md:text-[78px]">
-                <CountUp target={stat.value} />
-              </p>
-              <p className="mt-6 max-w-[220px] text-[15px] font-semibold uppercase leading-[1.45] text-white/74">
-                {stat.label}
-              </p>
-            </div>
-          ))}
-        </div>
+      {/* Stats Grid */}
+      <div className="reveal grid grid-cols-2 gap-px opacity-0 md:grid-cols-3" style={{ background: 'rgba(255,255,255,0.08)', borderRadius: '16px', overflow: 'hidden' }}>
+        {stats.map((stat) => (
+          <div
+            key={stat.label}
+            className="flex flex-col justify-between bg-[#101010] p-6 transition-colors duration-300 hover:bg-white/[0.04] sm:p-8"
+            style={{ minHeight: '180px' }}
+          >
+            <p className="text-[28px] font-normal leading-none text-[#b9d522] xs:text-[32px] sm:text-[40px] md:text-[48px]">
+              <CountUp target={stat.value} />
+            </p>
+            <p className="mt-4 text-[11px] font-bold uppercase tracking-[0.15em] leading-[1.5] text-white/50 sm:text-[12px]">
+              {stat.label}
+            </p>
+          </div>
+        ))}
       </div>
     </section>
   );
