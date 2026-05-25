@@ -343,14 +343,14 @@ export const HeroSection = () => {
           {/* Info bar — bottom horizontal */}
           <div className="absolute bottom-[86px] left-5 right-5 z-10 rounded-[5px] md:bottom-[92px]">
             <div key={activeIndex} className="animate-fade-in">
-              <div className="emons-glass rounded-[5px] p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 md:gap-8">
+              <div className="bg-transparent rounded-[5px] p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 md:gap-8">
                 {activeIndex === 0 ? (
                   <>
                     <div className="flex-1">
-                      <h1 className="text-[26px] font-semibold leading-[1.1] text-[#101010] sm:text-[28px]">
+                      <h1 className="text-[26px] font-semibold leading-[1.1] text-white drop-shadow-md sm:text-[28px]">
                         OSV FTWZs — India's Premier Free Trade Zone
                       </h1>
-                      <p className="mt-2 text-[13px] font-normal leading-[1.5] text-[#303030] sm:text-[14px] max-w-3xl">
+                      <p className="mt-2 text-[13px] font-normal leading-[1.5] text-white/90 drop-shadow-md sm:text-[14px] max-w-3xl">
                         Welcome to a new era of international trade. Our cutting-edge Free Trade Port eliminates export headaches, delays, demurrage, penalties, and tax number requirements.
                       </p>
                     </div>
@@ -367,28 +367,28 @@ export const HeroSection = () => {
                   <>
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
-                        <div className="flex h-8 w-8 items-center justify-center rounded-[4px] bg-[#b9d522] text-white">
+                        <div className="flex h-8 w-8 items-center justify-center rounded-[4px] bg-[#b9d522] text-white shadow-md">
                           <CurrentIcon size={16} />
                         </div>
-                        <span className="text-[11px] font-bold uppercase tracking-widest text-[#b9d522]">
+                        <span className="text-[11px] font-bold uppercase tracking-widest text-[#b9d522] drop-shadow-sm">
                           Service {activeIndex + 1} of {services.length}
                         </span>
                       </div>
-                      <h2 className="text-[22px] font-semibold leading-[1.15] text-[#101010] sm:text-[26px]">
+                      <h2 className="text-[22px] font-semibold leading-[1.15] text-white drop-shadow-md sm:text-[26px]">
                         {current.title}
                       </h2>
-                      <p className="mt-1 text-[13px] font-normal leading-[1.5] text-[#303030] sm:text-[14px] max-w-3xl">
+                      <p className="mt-1 text-[13px] font-normal leading-[1.5] text-white/90 drop-shadow-md sm:text-[14px] max-w-3xl">
                         {current.description}
                       </p>
                     </div>
                     <div className="flex shrink-0 flex-wrap items-center gap-3">
                       <button
                         onClick={() => setPopupOpen(true)}
-                        className="pill-btn bg-white/80 border-white/40 hover:bg-[#b9d522] hover:text-white transition-colors text-[#101010] font-semibold"
+                        className="pill-btn bg-white/80 border-white/40 hover:bg-[#b9d522] hover:text-white transition-colors text-[#101010] font-semibold shadow-md"
                       >
                         Quick facts
                       </button>
-                      <a href="#services" className="pill-btn pill-btn-dark">
+                      <a href="#services" className="pill-btn pill-btn-dark shadow-md">
                         Explore this service
                         <span className="pill-arrow">
                           <ArrowRight size={13} />
