@@ -32,7 +32,12 @@ export const ServicesGrid = () => {
   }, []);
 
   return (
-    <section id="services" ref={sectionRef} className="scroll-mt-24 bg-[#f5f2ee] pb-28 transition-colors duration-300" style={{ paddingLeft: '48px', paddingRight: '48px', paddingTop: '54px', marginTop: '-1px' }}>
+    <section
+      id="services"
+      ref={sectionRef}
+      className="scroll-mt-24 bg-[#f5f2ee] pb-20 transition-colors duration-300 md:pb-28"
+      style={{ paddingLeft: 'clamp(20px, 5vw, 48px)', paddingRight: 'clamp(20px, 5vw, 48px)', paddingTop: '54px', marginTop: '-1px' }}
+    >
       
       {/* Header — aligned with WelcomeSection */}
       <div className="reveal mb-20 opacity-0">
@@ -47,21 +52,19 @@ export const ServicesGrid = () => {
           <a
             key={card.title}
             href="#connect-with-us"
-            className="reveal opacity-0 group relative flex flex-col justify-between py-10 transition-all duration-500"
+            className="reveal opacity-0 group relative flex flex-col justify-between px-0 py-10 transition-all duration-500 sm:px-6 lg:px-7"
             style={{
               transitionDelay: `${idx * 60}ms`,
-              paddingLeft: idx % 4 === 0 ? '0' : '28px',
-              paddingRight: idx % 4 === 3 ? '0' : '28px',
             }}
           >
             {/* Vertical divider on the left (except first column) */}
             {idx % 4 !== 0 && (
-              <div className="absolute left-0 top-[10%] bottom-[10%] w-px bg-[#101010]/8" />
+              <div className="absolute left-0 top-[10%] bottom-[10%] hidden w-px bg-[#101010]/8 lg:block" />
             )}
 
             {/* Horizontal divider on top for second row */}
             {idx >= 4 && (
-              <div className="absolute top-0 left-[5%] right-[5%] h-px bg-[#101010]/8" />
+              <div className="absolute top-0 left-[5%] right-[5%] hidden h-px bg-[#101010]/8 lg:block" />
             )}
 
             {/* Image — Large, No Background, Float Effect */}

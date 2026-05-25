@@ -70,7 +70,11 @@ export const StatsSection = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="bg-[#101010] text-white" style={{ marginTop: '80px', padding: '80px 48px' }}>
+    <section
+      ref={sectionRef}
+      className="bg-[#101010] text-white"
+      style={{ marginTop: 'clamp(48px, 7vw, 80px)', padding: 'clamp(56px, 7vw, 80px) clamp(20px, 5vw, 48px)' }}
+    >
       
       {/* Header */}
       <div className="reveal mb-16 flex flex-col gap-6 opacity-0 lg:flex-row lg:items-end lg:justify-between">

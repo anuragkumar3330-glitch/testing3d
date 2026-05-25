@@ -69,6 +69,8 @@ export const HeroSection = () => {
   const requestRef = useRef<number | undefined>(undefined);
   const lastTimeRef = useRef<number | undefined>(undefined);
   const lastInteractionTime = useRef<number>(0);
+  const drawFrameRef = useRef<(frame: number) => void>(() => {});
+  const renderRef = useRef<(time: number) => void>(() => {});
 
   const getFramePath = (frame: number) => {
     return `/frames/${String(frame).padStart(5, '0')}.png`;
@@ -129,7 +131,7 @@ export const HeroSection = () => {
       newImg.src = getFramePath(frame);
       newImg.onload = () => {
         if (Math.round(currentFrameRef.current) === frame) {
-          drawFrame(frame);
+          drawFrameRef.current(frame);
         }
       };
       imageCache.current.set(frame, newImg);
@@ -185,8 +187,16 @@ export const HeroSection = () => {
       setVideoProgress(Math.max(0, Math.min(1, frameInService / FRAMES_PER_SERVICE)));
     }
 
-    requestRef.current = requestAnimationFrame(render);
+    requestRef.current = requestAnimationFrame(renderRef.current);
   }, [drawFrame, popupOpen, preloadImages]);
+
+  useEffect(() => {
+    drawFrameRef.current = drawFrame;
+  }, [drawFrame]);
+
+  useEffect(() => {
+    renderRef.current = render;
+  }, [render]);
 
   useEffect(() => {
     requestRef.current = requestAnimationFrame(render);
@@ -288,7 +298,7 @@ export const HeroSection = () => {
 
   const goTo = (index: number) => {
     if (index === activeIndex) return;
-    lastInteractionTime.current = performance.now();
+    lastInteractionTime.current = lastTimeRef.current ?? 0;
     const newFrame = index * FRAMES_PER_SERVICE + 1;
     targetFrame.current = newFrame;
     setPopupOpen(false);

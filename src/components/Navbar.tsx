@@ -1,7 +1,16 @@
 import { ArrowRight, Lightbulb, Menu, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
-const navItems = ['Home', 'Who We Are', 'What We Do', 'Industries', 'Facilities', 'Connect With Us'];
+const navItems = [
+  { label: 'Home', href: '#' },
+  { label: 'Who We Are', href: '#who-we-are' },
+  { label: 'What We Do', href: '#what-we-do' },
+  { label: 'Industries', href: '#industries' },
+  { label: 'Facilities', href: '#facilities' },
+  { label: 'Careers', href: 'mailto:support@onnsynex.com?subject=Careers%20at%20OSV' },
+  { label: 'Connect With Us', href: '#connect-with-us' },
+];
+const customerLoginUrl = 'https://tinyurl.com/osvclient';
 
 export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -39,13 +48,13 @@ export const Navbar = () => {
         <div className="hidden items-center gap-8 lg:flex">
           {navItems.map((item, index) => (
             <a
-              key={item}
-              href={index === 0 ? '#' : `#${item.toLowerCase().replaceAll(' ', '-')}`}
+              key={item.label}
+              href={item.href}
               className={`rounded-[4px] px-3 py-2 text-[13px] font-semibold text-white transition-colors duration-200 hover:bg-white/12 ${
                 index === 0 ? 'bg-white/12' : ''
               }`}
             >
-              {item}
+              {item.label}
             </a>
           ))}
         </div>
@@ -66,7 +75,7 @@ export const Navbar = () => {
               <ArrowRight size={14} />
             </span>
           </a>
-          <a href="#customer-login" className="pill-btn pill-btn-dark">
+          <a href={customerLoginUrl} target="_blank" rel="noopener noreferrer" className="pill-btn pill-btn-dark">
             Customer login
             <span className="pill-arrow bg-white/35">
               <ArrowRight size={14} />
@@ -89,14 +98,14 @@ export const Navbar = () => {
         }`}
       >
         <div className="flex flex-col gap-3">
-          {navItems.map((item, index) => (
+          {navItems.map((item) => (
             <a
-              key={item}
-              href={index === 0 ? '#' : `#${item.toLowerCase().replaceAll(' ', '-')}`}
+              key={item.label}
+              href={item.href}
               className="flex items-center justify-between border-b border-white/10 py-4 text-xl font-bold"
               onClick={() => setMobileMenuOpen(false)}
             >
-              {item}
+              {item.label}
               <ArrowRight size={20} className="text-[#b9d522]" />
             </a>
           ))}
@@ -105,7 +114,7 @@ export const Navbar = () => {
           <a href="#connect-with-us" className="pill-btn pill-btn-dark w-full">
             Get A Callback
           </a>
-          <a href="#customer-login" className="pill-btn pill-btn-dark w-full">
+          <a href={customerLoginUrl} target="_blank" rel="noopener noreferrer" className="pill-btn pill-btn-dark w-full">
             Customer login
           </a>
         </div>

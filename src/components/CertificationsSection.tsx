@@ -35,9 +35,10 @@ export const CertificationsSection = () => {
 
   return (
     <section 
+      id="certifications"
       ref={sectionRef}
-      className="bg-[#101010] text-white border-b border-white/[0.06]"
-      style={{ padding: '80px 48px' }}
+      className="scroll-mt-24 bg-[#101010] text-white border-b border-white/[0.06]"
+      style={{ padding: 'clamp(56px, 7vw, 80px) clamp(20px, 5vw, 48px)' }}
     >
       <div className="w-full">
         {/* Header - Aligned exactly like the other headers */}
@@ -51,7 +52,7 @@ export const CertificationsSection = () => {
         </div>
 
         {/* Marquee Window Container */}
-        <div className="reveal opacity-0 overflow-hidden relative py-6" style={{ margin: '0 -48px' }}>
+        <div className="reveal opacity-0 overflow-hidden relative py-6" style={{ margin: '0 calc(clamp(20px, 5vw, 48px) * -1)' }}>
           {/* Subtle side fading overlays for premium depth */}
           <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#101010] to-transparent z-10 pointer-events-none" />
           <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[#101010] to-transparent z-10 pointer-events-none" />

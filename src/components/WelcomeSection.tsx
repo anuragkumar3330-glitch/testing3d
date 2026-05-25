@@ -24,7 +24,12 @@ export const WelcomeSection = () => {
   }, []);
 
   return (
-    <section id="what-we-do" ref={sectionRef} className="scroll-mt-24 bg-[#f5f2ee] pr-5 pt-16 pb-24 md:pr-12 lg:pr-20 lg:pt-20 relative overflow-visible" style={{ paddingLeft: '48px' }}>
+    <section
+      id="what-we-do"
+      ref={sectionRef}
+      className="scroll-mt-24 bg-[#f5f2ee] pr-5 pt-16 pb-20 md:pr-12 md:pb-24 lg:pr-20 lg:pt-20 relative overflow-visible"
+      style={{ paddingLeft: 'clamp(20px, 5vw, 48px)' }}
+    >
       
       <div className="grid grid-cols-1 gap-12 lg:gap-24 lg:grid-cols-[1fr_1fr] lg:items-center relative z-10">
         

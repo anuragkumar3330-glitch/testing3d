@@ -5,6 +5,9 @@ import { ServicesGrid } from './components/ServicesGrid';
 import { StatsSection } from './components/StatsSection';
 import { NewsSection } from './components/NewsSection';
 import { GlobeSection } from './components/GlobeSection';
+import { CertificationsSection } from './components/CertificationsSection';
+import { ReviewsSection } from './components/ReviewsSection';
+import { FAQSection } from './components/FAQSection';
 import { Footer } from './components/Footer';
 
 function App() {
@@ -17,6 +20,9 @@ function App() {
         <ServicesGrid />
         <StatsSection />
         <NewsSection />
+        <ReviewsSection />
+        <CertificationsSection />
+        <FAQSection />
         <GlobeSection />
         <Footer />
       </div>

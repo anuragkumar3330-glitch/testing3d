@@ -1,24 +1,5 @@
-import { Handshake, CheckCircle, ShieldCheck, Warehouse, ArrowRight, ChevronDown } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
-
-const faqs = [
-  {
-    question: "What makes OSV Free Trade FTWZ stand out from others in the industry?",
-    answer: "Our FTWZ is a true game-changer, offering you a dedicated space where your goods can be efficiently handled and controlled. Unlike traditional customs processes, there is no interference from customs authorities, ensuring a seamless flow of imports, exports, and re-exports. As a specialized category of SEZ, our FTWZ comes with a host of benefits, including customs clearance capability and integrated solutions for packing management, sorting, and inspection, to name a few."
-  },
-  {
-    question: "What advantages can we expect from using your FTWZ services?",
-    answer: "The advantages of using our FTWZ are manifold. With us, you gain access to convenient and efficient solutions for meeting complete and semi-knocked down kits. Moreover, you can enjoy taxation benefits, enhancing your cost-effectiveness. Our specialization in sensitive cargos, such as tilt-sensitive, shock-sensitive, and temperature-sensitive shipments, allows you to trust us with even the most delicate items. Additionally, our expertise in handling everything from small pins to aircraft engines ensures that your shipments are in capable hands."
-  },
-  {
-    question: "How does OSV ensure a smooth and reliable logistics experience?",
-    answer: "At ONNSYNEX VENTURES PRIVATE LIMITED, we take pride in our presence at maximum locations, allowing us to offer you comprehensive and integrated logistics solutions. From special divisions for handling temperature-controlled shipments (16º to 24º) and cold storage shipments (up to -65º) to providing end-to-end cold chain solutions, we cater to diverse needs with utmost efficiency. Our 99% on-time delivery record speaks volumes about our commitment to punctuality and professionalism. You can even track your shipments through our delivery dashboard for added peace of mind."
-  },
-  {
-    question: "What sets OSV apart in terms of expertise and support for international trade policies and customs practices?",
-    answer: "OSV boasts a team of experts with vast experience in international trade policies and customs practices. Our deep understanding of regulatory frameworks ensures that your imports and exports comply with all relevant laws and regulations. Moreover, our strong advisory board, comprising industrial veterans and eminent personalities, brings unparalleled insights and guidance to our operations. When you choose OSV, you can rest assured that your international trade ventures are in the hands of seasoned professionals dedicated to your success."
-  }
-];
+import { Handshake, CheckCircle, ShieldCheck, Warehouse, ArrowRight } from 'lucide-react';
+import { useEffect, useRef } from 'react';
 
 const pillars = [
   {
@@ -78,16 +59,6 @@ const benefits = [
 
 export const NewsSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const [activeFaq, setActiveFaq] = useState<number | null>(null);
-  const [openedFaqs, setOpenedFaqs] = useState<Record<number, boolean>>({});
-
-  const toggleFaq = (idx: number) => {
-    const nextActive = activeFaq === idx ? null : idx;
-    setActiveFaq(nextActive);
-    if (nextActive !== null) {
-      setOpenedFaqs((prev) => ({ ...prev, [idx]: true }));
-    }
-  };
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -109,7 +80,7 @@ export const NewsSection = () => {
     <div ref={sectionRef} className="bg-[#101010] text-white">
 
       {/* ─── SECTION 1: About Us ─── */}
-      <section className="border-b border-white/[0.06]" style={{ padding: '80px 48px' }}>
+      <section className="border-b border-white/[0.06]" style={{ padding: 'clamp(56px, 7vw, 80px) clamp(20px, 5vw, 48px)' }}>
         <div className="w-full">
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-20">
 
@@ -157,7 +128,7 @@ export const NewsSection = () => {
       </section>
 
       {/* ─── SECTION 2: Three Pillars (50 year old legacy) ─── */}
-      <section className="relative overflow-hidden border-b border-white/[0.06]" style={{ padding: '80px 48px' }}>
+      <section className="relative overflow-hidden border-b border-white/[0.06]" style={{ padding: 'clamp(56px, 7vw, 80px) clamp(20px, 5vw, 48px)' }}>
         <div className="pointer-events-none absolute inset-0" style={{ background: 'radial-gradient(ellipse 800px 600px at 85% 80%, rgba(185,213,34,0.04) 0%, transparent 70%)' }} />
 
         <div className="relative w-full">
@@ -194,7 +165,7 @@ export const NewsSection = () => {
       </section>
 
       {/* ─── SECTION 3: Timeline ─── */}
-      <section className="border-b border-white/[0.06]" style={{ padding: '80px 48px' }}>
+      <section className="border-b border-white/[0.06]" style={{ padding: 'clamp(56px, 7vw, 80px) clamp(20px, 5vw, 48px)' }}>
         <div className="w-full">
           <div className="reveal opacity-0" style={{ marginBottom: '64px' }}>
             <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#b9d522]">
@@ -271,7 +242,7 @@ export const NewsSection = () => {
       </section>
 
       {/* ─── SECTION 4: What We Can Offer for You ─── */}
-      <section className="border-b border-white/[0.06]" style={{ padding: '80px 48px' }}>
+      <section className="border-b border-white/[0.06]" style={{ padding: 'clamp(56px, 7vw, 80px) clamp(20px, 5vw, 48px)' }}>
         <div className="w-full">
           <div className="reveal opacity-0" style={{ marginBottom: '56px' }}>
             <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#b9d522]">
@@ -319,89 +290,6 @@ export const NewsSection = () => {
               ))}
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* ─── SECTION 5: Frequently Asked Questions ─── */}
-      <section className="relative overflow-hidden" style={{ padding: '80px 48px' }}>
-        {/* Subtle glow background */}
-        <div className="pointer-events-none absolute inset-0" style={{ background: 'radial-gradient(circle 600px at 20% 50%, rgba(185,213,34,0.02) 0%, transparent 80%)' }} />
-
-        <div className="relative w-full">
-          {/* Header left-aligned exactly like screenshot */}
-          <div className="reveal opacity-0 text-left" style={{ marginBottom: '32px' }}>
-            <span className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#b9d522]">
-              FREQUENTLY ASKED QUESTIONS
-            </span>
-            <h2 className="mt-4 text-[36px] font-normal leading-[1.08] tracking-tight sm:text-[44px] md:text-[54px] text-white">
-              Most Popular Questions
-            </h2>
-          </div>
-
-          {/* Accordion container - left-aligned, maximum 860px width, no separator lines, only gap */}
-          <div className="reveal opacity-0 flex flex-col gap-6 max-w-[860px] w-full">
-            {faqs.map((faq, idx) => {
-              const isOpen = activeFaq === idx;
-              return (
-                <div 
-                  key={idx} 
-                  className="w-full"
-                >
-                  <button
-                    onClick={() => toggleFaq(idx)}
-                    className="w-full flex items-center justify-between text-left py-2 transition-colors duration-300 focus:outline-none group"
-                  >
-                    <span 
-                      className="text-[16px] sm:text-[18px] font-semibold tracking-tight pr-8 transition-colors duration-300 leading-snug"
-                      style={{ color: isOpen ? '#b9d522' : '#ffffff' }}
-                    >
-                      {faq.question}
-                    </span>
-                    {/* Clean down arrow in green directly */}
-                    <ChevronDown 
-                      size={20} 
-                      className="text-[#b9d522] shrink-0 transition-transform duration-300"
-                      style={{ 
-                        transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)'
-                      }}
-                    />
-                  </button>
-
-                  {/* Collapsible Answer - Grid transition with opacity and lazy rendering */}
-                  <div
-                    className="grid transition-all duration-300 ease-in-out"
-                    style={{
-                      gridTemplateRows: isOpen ? '1fr' : '0fr',
-                      opacity: isOpen ? 1 : 0,
-                    }}
-                  >
-                    <div className="overflow-hidden">
-                      <div className="pb-4 text-[14.5px] leading-[1.7] text-white/70 pt-2">
-                        {openedFaqs[idx] && faq.answer}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-
-            {/* Contact Expert CTA - Placed below last question with same gaping */}
-            <div className="text-left pt-2">
-              <p className="text-[15px] font-semibold text-[#b9d522]">
-                Looking for answers to particular questions?{' '}
-                <a 
-                  href="#connect-with-us" 
-                  className="underline transition-colors hover:text-[#d4f02a]"
-                >
-                  Contact
-                </a>{' '}
-                our experts now.
-              </p>
-            </div>
-          </div>
-
-
-
         </div>
       </section>
 
