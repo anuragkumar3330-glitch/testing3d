@@ -100,8 +100,8 @@ export const NewsSection = () => {
     <div ref={sectionRef} className="bg-[#101010] text-white">
 
       {/* ─── SECTION 1: About Us ─── */}
-      <section className="border-b border-white/[0.06] px-6 py-20 sm:px-12 md:py-24 lg:px-[48px]">
-        <div className="mx-auto max-w-[1200px]">
+      <section className="border-b border-white/[0.06]" style={{ padding: '80px 48px' }}>
+        <div className="w-full">
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-20">
 
             {/* Left: Text content */}
@@ -148,10 +148,10 @@ export const NewsSection = () => {
       </section>
 
       {/* ─── SECTION 2: Three Pillars (50 year old legacy) ─── */}
-      <section className="relative overflow-hidden border-b border-white/[0.06] px-6 py-20 sm:px-12 md:py-24 lg:px-[48px]">
+      <section className="relative overflow-hidden border-b border-white/[0.06]" style={{ padding: '80px 48px' }}>
         <div className="pointer-events-none absolute inset-0" style={{ background: 'radial-gradient(ellipse 800px 600px at 85% 80%, rgba(185,213,34,0.04) 0%, transparent 70%)' }} />
 
-        <div className="relative mx-auto max-w-[1200px]">
+        <div className="relative w-full">
           <div className="grid grid-cols-1 gap-12 md:grid-cols-3 md:gap-8 lg:gap-12">
             {pillars.map((p) => (
               <div key={p.num} className="reveal opacity-0 flex flex-col">
@@ -185,8 +185,8 @@ export const NewsSection = () => {
       </section>
 
       {/* ─── SECTION 3: Timeline ─── */}
-      <section className="border-b border-white/[0.06] px-6 py-20 sm:px-12 md:py-24 lg:px-[48px]">
-        <div className="mx-auto max-w-[1200px]">
+      <section className="border-b border-white/[0.06]" style={{ padding: '80px 48px' }}>
+        <div className="w-full">
           <div className="reveal opacity-0" style={{ marginBottom: '64px' }}>
             <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#b9d522]">
               Operational Excellence
@@ -262,8 +262,8 @@ export const NewsSection = () => {
       </section>
 
       {/* ─── SECTION 4: What We Can Offer for You ─── */}
-      <section className="border-b border-white/[0.06] px-6 py-20 sm:px-12 md:py-24 lg:px-[48px]">
-        <div className="mx-auto max-w-[1200px]">
+      <section className="border-b border-white/[0.06]" style={{ padding: '80px 48px' }}>
+        <div className="w-full">
           <div className="reveal opacity-0" style={{ marginBottom: '56px' }}>
             <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#b9d522]">
               Benefits
@@ -314,11 +314,11 @@ export const NewsSection = () => {
       </section>
 
       {/* ─── SECTION 5: Frequently Asked Questions ─── */}
-      <section className="relative overflow-hidden px-6 py-20 sm:px-12 md:py-24 lg:px-[48px]">
+      <section className="relative overflow-hidden" style={{ padding: '80px 48px' }}>
         {/* Subtle glow background */}
         <div className="pointer-events-none absolute inset-0" style={{ background: 'radial-gradient(circle 600px at 20% 50%, rgba(185,213,34,0.02) 0%, transparent 80%)' }} />
 
-        <div className="relative mx-auto max-w-[1200px]">
+        <div className="relative w-full">
           {/* Header left-aligned exactly like screenshot */}
           <div className="reveal opacity-0 text-left" style={{ marginBottom: '52px' }}>
             <span className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#b9d522]">
