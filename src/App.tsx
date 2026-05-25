@@ -19,8 +19,8 @@ function App() {
         <ServicesGrid />
         <StatsSection />
         <NewsSection />
-        <CertificationsSection />
         <ReviewsSection />
+        <CertificationsSection />
         <CTABanner />
         <Footer />
       </div>
