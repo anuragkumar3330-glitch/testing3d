@@ -79,6 +79,15 @@ const benefits = [
 export const NewsSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
+  const [openedFaqs, setOpenedFaqs] = useState<Record<number, boolean>>({});
+
+  const toggleFaq = (idx: number) => {
+    const nextActive = activeFaq === idx ? null : idx;
+    setActiveFaq(nextActive);
+    if (nextActive !== null) {
+      setOpenedFaqs((prev) => ({ ...prev, [idx]: true }));
+    }
+  };
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -329,18 +338,18 @@ export const NewsSection = () => {
             </h2>
           </div>
 
-          {/* Accordion container - left-aligned, maximum 860px width */}
-          <div className="reveal opacity-0 flex flex-col border-t border-white/[0.08] max-w-[860px]">
+          {/* Accordion container - left-aligned, maximum 860px width, no separator lines, only gap */}
+          <div className="reveal opacity-0 flex flex-col gap-6 max-w-[860px] w-full">
             {faqs.map((faq, idx) => {
               const isOpen = activeFaq === idx;
               return (
                 <div 
                   key={idx} 
-                  className="border-b border-white/[0.08]"
+                  className="w-full"
                 >
                   <button
-                    onClick={() => setActiveFaq(isOpen ? null : idx)}
-                    className="w-full flex items-center justify-between text-left py-7 transition-colors duration-300 focus:outline-none group"
+                    onClick={() => toggleFaq(idx)}
+                    className="w-full flex items-center justify-between text-left py-2 transition-colors duration-300 focus:outline-none group"
                   >
                     <span 
                       className="text-[16px] sm:text-[18px] font-semibold tracking-tight pr-8 transition-colors duration-300 leading-snug"
@@ -348,7 +357,7 @@ export const NewsSection = () => {
                     >
                       {faq.question}
                     </span>
-                    {/* Clean down arrow in green directly, no border/circle background */}
+                    {/* Clean down arrow in green directly */}
                     <ChevronDown 
                       size={20} 
                       className="text-[#b9d522] shrink-0 transition-transform duration-300"
@@ -358,18 +367,18 @@ export const NewsSection = () => {
                     />
                   </button>
 
-                  {/* Collapsible Answer */}
+                  {/* Collapsible Answer - Grid transition with opacity and lazy rendering */}
                   <div
-                    className="overflow-hidden transition-all duration-300 ease-in-out"
+                    className="grid transition-all duration-300 ease-in-out"
                     style={{
-                      maxHeight: isOpen ? '400px' : '0',
+                      gridTemplateRows: isOpen ? '1fr' : '0fr',
                       opacity: isOpen ? 1 : 0,
                     }}
                   >
-                    <div className="pb-6">
-                      <p className="text-[14.5px] leading-[1.7] text-white/70">
-                        {faq.answer}
-                      </p>
+                    <div className="overflow-hidden">
+                      <div className="pb-4 text-[14.5px] leading-[1.7] text-white/70 pt-2">
+                        {openedFaqs[idx] && faq.answer}
+                      </div>
                     </div>
                   </div>
                 </div>
