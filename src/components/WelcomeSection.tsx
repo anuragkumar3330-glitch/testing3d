@@ -20,33 +20,58 @@ export const WelcomeSection = () => {
   }, []);
 
   return (
-    <section id="what-we-do" ref={sectionRef} className="scroll-mt-24 bg-[#f5f2ee] px-5 py-24 md:px-12 lg:px-20">
-      <div className="mx-auto grid max-w-[1400px] grid-cols-1 gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:items-end">
-        <div className="reveal opacity-0">
-          <span className="section-label">Welcome to OSV FTWZ</span>
-          <h2 className="mt-7 max-w-[740px] text-[42px] font-normal leading-[1.02] text-[#101010] md:text-[64px] lg:text-[82px]">
-            50 year old legacy. Nationwide presence. Free trade, simplified.
+    <section id="what-we-do" ref={sectionRef} className="scroll-mt-24 bg-[#f5f2ee] px-5 py-24 md:px-12 lg:px-20 relative overflow-hidden">
+      
+      {/* Decorative Crosshairs (matching emons.de background) */}
+      <div className="absolute top-[15%] left-[45%] text-[#101010]/20 pointer-events-none">+</div>
+      <div className="absolute top-[35%] left-[25%] text-[#101010]/20 pointer-events-none">+</div>
+      <div className="absolute bottom-[20%] left-[10%] text-[#101010]/20 pointer-events-none">+</div>
+      <div className="absolute top-[10%] right-[30%] text-[#101010]/20 pointer-events-none">+</div>
+      <div className="absolute bottom-[40%] right-[15%] text-[#101010]/20 pointer-events-none">+</div>
+
+      <div className="mx-auto grid max-w-[1400px] grid-cols-1 gap-16 lg:grid-cols-2 lg:items-end">
+        {/* Left Column: Massive Heading */}
+        <div className="reveal opacity-0 relative z-10 pb-0 lg:pb-12">
+          <h2 className="text-[48px] md:text-[64px] lg:text-[76px] font-semibold leading-[1.05] tracking-tight text-[#101010]">
+            50 year old legacy.<br />Nationwide presence.<br />Free trade, simplified.
           </h2>
         </div>
 
-        <div className="reveal opacity-0 border-l border-[#dccfc6] pl-0 lg:pl-10">
-          <p className="max-w-[680px] text-[22px] font-normal leading-[1.35] text-[#101010] md:text-[30px]">
-            OSV FTWZ helps international businesses trade with India through strategically located Free Trade Ports and Zones across Delhi NCR, Mumbai, Gujarat and Chennai.
-          </p>
-          <p className="mt-7 max-w-[640px] text-[16px] leading-[1.8] text-[#565656]">
-            We provide duty-deferred storage, seamless customs clearance, transportation, international logistics, real-time shipment visibility and compliance support for importers who need speed without paperwork friction.
-          </p>
-          <div className="mt-9 flex flex-wrap gap-3">
-            <a href="#facilities" className="pill-btn pill-btn-dark">
-              Explore Facilities
-              <span className="pill-arrow">
-                <ArrowRight size={14} />
-              </span>
-            </a>
-            <a href="#connect-with-us" className="pill-btn pill-btn-light">
-              Contact Experts
-            </a>
+        {/* Right Column: Truck + Buttons + Text */}
+        <div className="reveal opacity-0 flex flex-col gap-10 relative z-10">
+          
+          {/* Truck Image - Overlapping visually like emons.de */}
+          <div className="relative w-full aspect-[4/3] sm:aspect-video lg:aspect-[4/3] -mx-5 sm:mx-0">
+            <img 
+              src="/images/truck.png" 
+              alt="OSV FTWZ Truck" 
+              className="absolute -right-5 sm:-right-12 lg:-right-20 top-0 w-[120%] max-w-none object-contain drop-shadow-2xl" 
+            />
           </div>
+          
+          <div className="flex flex-col gap-8 pr-0 lg:pr-10">
+            {/* Buttons Row (Emons style: Pill + Circular arrow) */}
+            <div className="flex flex-wrap gap-4">
+              <a href="#services" className="group flex items-center gap-4 rounded-full bg-[#f24c3d] pl-6 pr-1.5 py-1.5 text-[15px] font-medium text-white transition-colors hover:bg-[#d93a2c]">
+                Explore Services
+                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20 transition-transform group-hover:translate-x-1">
+                  <ArrowRight size={16} />
+                </span>
+              </a>
+              <a href="#connect-with-us" className="group flex items-center gap-4 rounded-full bg-[#f24c3d] pl-6 pr-1.5 py-1.5 text-[15px] font-medium text-white transition-colors hover:bg-[#d93a2c]">
+                Contact Experts
+                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20 transition-transform group-hover:translate-x-1">
+                  <ArrowRight size={16} />
+                </span>
+              </a>
+            </div>
+            
+            {/* Paragraph Description */}
+            <p className="text-[15px] md:text-[17px] font-medium leading-[1.65] text-[#303030] max-w-lg">
+              OSV FTWZ helps international businesses trade with India through strategically located Free Trade Ports and Zones across Delhi NCR, Mumbai, Gujarat and Chennai. We provide duty-deferred storage, seamless customs clearance, transportation, and international logistics.
+            </p>
+          </div>
+
         </div>
       </div>
     </section>
