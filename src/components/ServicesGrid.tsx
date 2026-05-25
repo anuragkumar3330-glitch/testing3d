@@ -50,7 +50,7 @@ export const ServicesGrid = () => {
               key={card.title}
               href="#connect-with-us"
               className={`service-card group flex flex-col justify-between border-b border-r p-6 ${
-                card.isRed ? 'bg-[#ff5348] text-white' : ''
+                card.isRed ? 'bg-[#b9d522] text-white' : ''
               }`}
             >
               <div>
@@ -64,7 +64,7 @@ export const ServicesGrid = () => {
               </div>
               <div className="mt-10 flex items-center justify-between border-t border-current/14 pt-5">
                 <span className="text-[13px] font-semibold">More info</span>
-                <span className="card-arrow flex h-9 w-9 items-center justify-center rounded-full bg-white text-[#ff5348]">
+                <span className="card-arrow flex h-9 w-9 items-center justify-center rounded-full bg-white text-[#b9d522]">
                   <ArrowRight size={17} />
                 </span>
               </div>

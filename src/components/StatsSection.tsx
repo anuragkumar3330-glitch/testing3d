@@ -87,7 +87,7 @@ export const StatsSection = () => {
         <div className="reveal grid grid-cols-1 border-l border-t border-white/12 opacity-0 sm:grid-cols-2 lg:grid-cols-3">
           {stats.map((stat) => (
             <div key={stat.label} className="min-h-[220px] border-b border-r border-white/12 p-7 transition-colors duration-200 hover:bg-white/8 md:p-9">
-              <p className="text-[56px] font-normal leading-none text-[#ff5348] md:text-[78px]">
+              <p className="text-[56px] font-normal leading-none text-[#b9d522] md:text-[78px]">
                 <CountUp target={stat.value} />
               </p>
               <p className="mt-6 max-w-[220px] text-[15px] font-semibold uppercase leading-[1.45] text-white/74">

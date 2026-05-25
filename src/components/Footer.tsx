@@ -10,7 +10,7 @@ export const Footer = () => {
       <div className="mx-auto max-w-[1400px]">
         <div className="grid grid-cols-1 gap-10 border-b border-[#dccfc6] pb-12 md:grid-cols-[1.1fr_0.9fr_0.9fr_0.9fr]">
           <div>
-            <div className="inline-flex h-12 min-w-[124px] items-center justify-center rounded-[4px] bg-[#e30613] px-5 text-white">
+            <div className="inline-flex h-12 min-w-[124px] items-center justify-center rounded-[4px] bg-[#000000] px-5 text-white">
               <span className="text-[24px] font-extrabold leading-none">OSV</span>
             </div>
             <p className="mt-6 max-w-[320px] text-[15px] leading-[1.7] text-[#565656]">
@@ -19,7 +19,7 @@ export const Footer = () => {
           </div>
 
           <div>
-            <p className="mb-3 text-xs font-bold uppercase text-[#e30613]">Corporate Office</p>
+            <p className="mb-3 text-xs font-bold uppercase text-[#000000]">Corporate Office</p>
             <p className="text-sm font-semibold text-[#101010]">ONNSYNEX VENTURES PVT LTD</p>
             <p className="mt-2 text-sm leading-[1.7] text-[#565656]">New Delhi, India</p>
             <p className="mt-5 text-sm leading-[1.7] text-[#565656]">support@onnsynex.com</p>
@@ -27,15 +27,15 @@ export const Footer = () => {
           </div>
 
           <div>
-            <p className="mb-3 text-xs font-bold uppercase text-[#e30613]">Hotline</p>
+            <p className="mb-3 text-xs font-bold uppercase text-[#000000]">Hotline</p>
             <p className="text-sm font-semibold text-[#101010]">Trade & Logistics Support</p>
             <p className="mt-2 text-sm leading-[1.7] text-[#565656]">+91-7070703922</p>
           </div>
 
           <div>
-            <p className="mb-3 text-xs font-bold uppercase text-[#e30613]">Follow us</p>
+            <p className="mb-3 text-xs font-bold uppercase text-[#000000]">Follow us</p>
             {['Facebook', 'Instagram', 'LinkedIn', 'Twitter'].map((social) => (
-              <a key={social} href="#" className="block py-1 text-sm text-[#565656] transition-colors hover:text-[#e30613]">
+              <a key={social} href="#" className="block py-1 text-sm text-[#565656] transition-colors hover:text-[#000000]">
                 {social}
               </a>
             ))}
@@ -47,7 +47,7 @@ export const Footer = () => {
             <div key={links[0]}>
               <h4 className="mb-5 text-lg font-semibold text-[#101010]">{links[0]}</h4>
               {links.slice(1).map((link) => (
-                <a key={link} href="#" className="block py-1.5 text-sm text-[#565656] transition-colors hover:text-[#e30613]">
+                <a key={link} href="#" className="block py-1.5 text-sm text-[#565656] transition-colors hover:text-[#000000]">
                   {link}
                 </a>
               ))}
@@ -59,7 +59,7 @@ export const Footer = () => {
           <p>© {new Date().getFullYear()} OSV FTWZ. All rights reserved.</p>
           <div className="flex flex-wrap gap-5">
             {['Imprint', 'Data protection', 'Terms and Conditions', 'Cookie Policy'].map((link) => (
-              <a key={link} href="#" className="transition-colors hover:text-[#e30613]">
+              <a key={link} href="#" className="transition-colors hover:text-[#000000]">
                 {link}
               </a>
             ))}

@@ -37,13 +37,13 @@ export const WelcomeSection = () => {
             We provide duty-deferred storage, seamless customs clearance, transportation, international logistics, real-time shipment visibility and compliance support for importers who need speed without paperwork friction.
           </p>
           <div className="mt-9 flex flex-wrap gap-3">
-            <a href="#facilities" className="pill-btn pill-btn-red">
+            <a href="#facilities" className="pill-btn pill-btn-dark">
               Explore Facilities
               <span className="pill-arrow">
                 <ArrowRight size={14} />
               </span>
             </a>
-            <a href="#connect-with-us" className="pill-btn pill-btn-peach">
+            <a href="#connect-with-us" className="pill-btn pill-btn-light">
               Contact Experts
             </a>
           </div>

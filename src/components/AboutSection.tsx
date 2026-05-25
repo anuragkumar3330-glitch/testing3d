@@ -44,7 +44,7 @@ export const AboutSection = () => {
                 Our ancillary services include custom clearance, transportation and international logistics, giving importers one coordinated partner from cargo arrival to delivery.
               </p>
             </div>
-            <a href="#connect-with-us" className="pill-btn pill-btn-red mt-10 w-fit">
+            <a href="#connect-with-us" className="pill-btn pill-btn-dark mt-10 w-fit">
               About us
               <span className="pill-arrow">
                 <ArrowRight size={14} />
@@ -54,7 +54,7 @@ export const AboutSection = () => {
         </div>
 
         <div className="reveal mt-5 grid grid-cols-1 gap-5 opacity-0 lg:grid-cols-[0.82fr_1.18fr]">
-          <div className="bg-[#e30613] p-8 text-white md:p-10">
+          <div className="bg-[#000000] p-8 text-white md:p-10">
             <p className="text-[14px] font-semibold uppercase">No importer in India? No problem.</p>
             <p className="mt-5 text-[28px] font-normal leading-[1.15]">
               Trade like an MNC with local compliance, duty deferral and complete operational support.

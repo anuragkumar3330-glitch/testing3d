@@ -9,7 +9,6 @@ const services = [
     title: 'Zero red tape',
     description:
       'Swift customs clearance, non-interference and expert support for Indian import and export paperwork.',
-    video: '/1.mp4',
   },
   {
     id: 'warehouse',
@@ -18,7 +17,6 @@ const services = [
     title: 'Duty-deferred warehousing',
     description:
       'World-class FTWZ storage across Delhi NCR, Mumbai, Gujarat and Chennai with safe handling for high-value cargo.',
-    video: '/2.mp4',
   },
   {
     id: 'sea',
@@ -27,7 +25,6 @@ const services = [
     title: 'Cost-effective imports',
     description:
       'Sea freight and consolidation routes designed to reduce demurrage, penalties and tax friction.',
-    video: '/3.mp4',
   },
   {
     id: 'air',
@@ -36,7 +33,6 @@ const services = [
     title: 'Global movement',
     description:
       'Air freight support for time-sensitive shipments with end-to-end documentation and visibility.',
-    video: '/4.mp4',
   },
   {
     id: 'digital',
@@ -45,205 +41,200 @@ const services = [
     title: 'Tracking dashboard',
     description:
       'Real-time shipment tracking and operational updates for clients who need complete supply-chain visibility.',
-    video: '/5.mp4',
   },
 ];
 
 export const HeroSection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [nextIndex, setNextIndex] = useState<number | null>(null);
   const [popupOpen, setPopupOpen] = useState(false);
   const [videoProgress, setVideoProgress] = useState(0);
 
-  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
-  const isTransitioning = useRef(false);
+  
+  const currentVideoTime = useRef(0);
+  const targetVideoTime = useRef(0);
+  const videoDuration = useRef(10); // Default, updated on load
+  const requestRef = useRef<number>();
+  const lastTimeRef = useRef<number>();
+  const lastInteractionTime = useRef<number>(0);
 
-  // Go to a specific slide
-  const goTo = useCallback((index: number, startTime: number = 0) => {
-    if (index === activeIndex || isTransitioning.current) return;
+  const render = useCallback((time: number) => {
+    if (lastTimeRef.current === undefined) {
+      lastTimeRef.current = time;
+    }
+    const dt = Math.min(time - lastTimeRef.current, 50);
+    lastTimeRef.current = time;
+
+    const duration = videoDuration.current || 10;
     
-    isTransitioning.current = true;
-    setNextIndex(index);
-    setVideoProgress(0);
-    setPopupOpen(false);
-
-    // Play the next video
-    const nextVid = videoRefs.current[index];
-    if (nextVid) {
-      nextVid.currentTime = startTime;
-      nextVid.play().catch(() => {});
+    // Autoplay when at top and popup is closed, and user hasn't interacted recently
+    const timeSinceInteraction = time - lastInteractionTime.current;
+    if (!popupOpen && window.scrollY <= 10 && timeSinceInteraction > 1500) {
+       targetVideoTime.current += (dt / 1000) * 1.5; // Autoplay speed multiplier
+       
+       if (targetVideoTime.current >= duration) {
+         targetVideoTime.current = 0;
+         currentVideoTime.current = 0; 
+         if (videoRef.current) {
+            videoRef.current.currentTime = 0;
+         }
+       }
     }
 
-    // After crossfade duration, commit the switch
-    setTimeout(() => {
-      const oldVid = videoRefs.current[activeIndex];
-      if (oldVid) {
-        oldVid.pause();
-        oldVid.currentTime = 0;
-      }
-      setActiveIndex(index);
-      setNextIndex(null);
-      isTransitioning.current = false;
-    }, 400); // Faster transition for smoother scrubbing
-  }, [activeIndex]);
-
-  const goNext = useCallback(() => {
-    const next = (activeIndex + 1) % services.length;
-    goTo(next);
-  }, [activeIndex, goTo]);
-
-
-
-  // Autoplay progression when a video ends natively
-  const handleVideoEnded = useCallback((index: number) => {
-    if (index === activeIndex && !isTransitioning.current) {
-      goNext();
+    const diff = targetVideoTime.current - currentVideoTime.current;
+    
+    let newTime = currentVideoTime.current;
+    const TIME_PER_SERVICE = duration / services.length;
+    
+    if (Math.abs(diff) > TIME_PER_SERVICE) {
+       newTime += diff * 0.25;
+    } else if (Math.abs(diff) > 0.05) {
+       newTime += diff * 0.15;
+    } else {
+       newTime = targetVideoTime.current;
     }
-  }, [activeIndex, goNext]);
 
-  // Track video playback progress for the active slide
-  const handleTimeUpdate = useCallback((index: number) => {
-    if (index !== activeIndex) return;
-    const vid = videoRefs.current[index];
-    if (vid && vid.duration > 0) {
-      setVideoProgress(vid.currentTime / vid.duration);
+    if (newTime !== currentVideoTime.current && videoRef.current) {
+      currentVideoTime.current = newTime;
+      // Scrub video
+      videoRef.current.currentTime = newTime;
+
+      const newActiveIndex = Math.min(
+        services.length - 1,
+        Math.max(0, Math.floor(newTime / TIME_PER_SERVICE))
+      );
+
+      setActiveIndex(newActiveIndex);
+
+      const timeInService = newTime - (newActiveIndex * TIME_PER_SERVICE);
+      setVideoProgress(Math.max(0, Math.min(1, timeInService / TIME_PER_SERVICE)));
     }
-  }, [activeIndex]);
 
-  // Ensure all videos are muted and preloaded
+    requestRef.current = requestAnimationFrame(render);
+  }, [popupOpen]);
+
   useEffect(() => {
-    videoRefs.current.forEach((vid) => {
-      if (vid) {
-        vid.muted = true;
-        vid.preload = "auto";
-      }
-    });
-  }, []);
+    requestRef.current = requestAnimationFrame(render);
+    return () => {
+      if (requestRef.current) cancelAnimationFrame(requestRef.current);
+    };
+  }, [render]);
 
-  // Ensure the active video plays automatically
-  useEffect(() => {
-    const vid = videoRefs.current[activeIndex];
-    if (vid) {
-      vid.play().catch(() => {});
+  const handleLoadedMetadata = () => {
+    if (videoRef.current) {
+      videoDuration.current = videoRef.current.duration;
     }
-  }, [activeIndex]);
+  };
 
-  // Wheel jacking for merged scroll-scrubbing effect
+  // Wheel scrubbing
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
-      if (window.scrollY > 10) return;
+      if (window.scrollY > 0) return;
+
+      const duration = videoDuration.current;
+      if (e.deltaY < 0 && targetVideoTime.current <= 0) return;
+      if (e.deltaY > 0 && targetVideoTime.current >= duration) return;
+
       e.preventDefault();
+      lastInteractionTime.current = performance.now();
 
-      if (isTransitioning.current) return;
-
-      const currentVid = videoRefs.current[activeIndex];
-      if (!currentVid || !currentVid.duration) return;
-
-      // Scrub sensitivity: e.g., 100px scroll = 0.5s of video
-      const timeDelta = e.deltaY * 0.005; 
-      let newTime = currentVid.currentTime + timeDelta;
-
-      if (newTime >= currentVid.duration) {
-        // Scrubbed past the end -> transition to next video
-        if (activeIndex < services.length - 1) {
-          const remainder = newTime - currentVid.duration;
-          goTo(activeIndex + 1, remainder);
-        } else {
-          // Last video, just cap it
-          currentVid.currentTime = currentVid.duration - 0.1;
-        }
-      } else if (newTime <= 0) {
-        // Scrubbed past the beginning -> transition to prev video
-        if (activeIndex > 0) {
-          const prevVid = videoRefs.current[activeIndex - 1];
-          const prevDuration = prevVid?.duration || 5; // fallback
-          goTo(activeIndex - 1, prevDuration + newTime); // newTime is negative
-        } else {
-          currentVid.currentTime = 0;
-        }
-      } else {
-        // Normal scrub within the current video
-        currentVid.currentTime = newTime;
-        // Ensure it stays playing so it continues automatically when scrolling stops
-        currentVid.play().catch(()=>{});
-      }
+      // Convert delta to seconds
+      const timeDelta = e.deltaY * 0.005;
+      let newTarget = targetVideoTime.current + timeDelta;
+      newTarget = Math.max(0, Math.min(duration, newTarget));
+      targetVideoTime.current = newTarget;
     };
 
     window.addEventListener('wheel', handleWheel, { passive: false });
     return () => window.removeEventListener('wheel', handleWheel);
-  }, [activeIndex, goTo]);
+  }, []);
 
-  const current = services[activeIndex];
+  // Touch scrubbing
+  useEffect(() => {
+    let lastY = 0;
+    
+    const handleTouchStart = (e: TouchEvent) => {
+      if (window.scrollY > 0) return;
+      lastY = e.touches[0].clientY;
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (window.scrollY > 0) return;
+      
+      const currentY = e.touches[0].clientY;
+      const deltaY = lastY - currentY;
+      
+      const duration = videoDuration.current;
+      if (deltaY < 0 && targetVideoTime.current <= 0) return;
+      if (deltaY > 0 && targetVideoTime.current >= duration) return;
+
+      e.preventDefault();
+      lastInteractionTime.current = performance.now();
+      
+      const timeDelta = deltaY * 0.02; 
+      let newTarget = targetVideoTime.current + timeDelta;
+      newTarget = Math.max(0, Math.min(duration, newTarget));
+      targetVideoTime.current = newTarget;
+      
+      lastY = currentY;
+    };
+
+    window.addEventListener('touchstart', handleTouchStart, { passive: false });
+    window.addEventListener('touchmove', handleTouchMove, { passive: false });
+    
+    return () => {
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchmove', handleTouchMove);
+    };
+  }, []);
+
+  const goTo = (index: number) => {
+    if (index === activeIndex) return;
+    lastInteractionTime.current = performance.now();
+    const TIME_PER_SERVICE = videoDuration.current / services.length;
+    const newTime = index * TIME_PER_SERVICE + 0.1; // Add small offset
+    targetVideoTime.current = newTime;
+    setPopupOpen(false);
+  };
+
+  const current = services[activeIndex] || services[0];
   const CurrentIcon = current.icon;
 
   return (
     <section ref={sectionRef} className="relative h-screen w-full overflow-hidden">
       <div className="relative h-full w-full overflow-hidden bg-[#0a0a0a]">
-        {/* Video layers */}
-        {services.map((service, index) => {
-          const isActive = index === activeIndex;
-          const isNext = index === nextIndex;
-          return (
-            <div
-              key={service.id}
-              className="absolute inset-0 w-full h-full"
-              style={{
-                opacity: isActive ? (nextIndex !== null ? 0 : 1) : isNext ? 1 : 0,
-                transition: 'opacity 400ms ease',
-                zIndex: isNext ? 2 : isActive ? 1 : 0,
-                pointerEvents: isActive ? 'auto' : 'none',
-              }}
-            >
-              <video
-                ref={(el) => {
-                  videoRefs.current[index] = el;
-                }}
-                className="hero-video w-full h-full object-cover"
-                muted
-                playsInline
-                autoPlay
-                src={service.video}
-                onTimeUpdate={() => handleTimeUpdate(index)}
-                onEnded={() => handleVideoEnded(index)}
-              />
-            </div>
-          );
-        })}
+        
+        {/* Scrubbing Video */}
+        <div className="absolute inset-0 w-full h-full" style={{ zIndex: 1 }}>
+          <video
+            ref={videoRef}
+            src="/Animation.mp4"
+            className="w-full h-full object-cover block"
+            muted
+            playsInline
+            preload="auto"
+            onLoadedMetadata={handleLoadedMetadata}
+          />
+        </div>
 
         {/* Gradient overlays */}
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.45)_0%,rgba(0,0,0,0.02)_40%,rgba(0,0,0,0.55)_100%)]" style={{ zIndex: 3 }} />
 
         {/* Content overlay */}
         <div className="absolute inset-0" style={{ zIndex: 4 }}>
-          {/* Plus markers */}
-          <button
-            className="plus-marker absolute left-[27%] top-[39%] z-10"
-            onClick={() => setPopupOpen(true)}
-            aria-label="Open OSV customs highlight"
-          >
-            +
-          </button>
-          <button
-            className="plus-marker absolute right-[30%] top-[34%] z-10 hidden sm:inline-flex"
-            onClick={() => setPopupOpen(true)}
-            aria-label="Open OSV warehousing highlight"
-          >
-            +
-          </button>
-
           {/* Popup */}
           {popupOpen && (
             <div className="emons-glass absolute left-1/2 top-1/2 z-20 w-[min(360px,calc(100vw-32px))] -translate-x-1/2 -translate-y-1/2 rounded-[4px] p-5 md:left-[31%] md:top-[30%] md:translate-x-0 md:translate-y-0 animate-fade-in">
               <div className="mb-4 flex items-start justify-between gap-4">
                 <div>
-                  <div className="mb-2 flex h-10 w-10 items-center justify-center rounded-[4px] bg-[#ff5348] text-white">
+                  <div className="mb-2 flex h-10 w-10 items-center justify-center rounded-[4px] bg-[#b9d522] text-white">
                     <CurrentIcon size={21} />
                   </div>
                   <h3 className="text-2xl font-semibold leading-tight">{current.title}</h3>
                 </div>
                 <button
-                  className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-[#101010] transition-colors hover:bg-[#ff5348] hover:text-white"
+                  className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-[#101010] transition-colors hover:bg-[#b9d522] hover:text-white"
                   onClick={() => setPopupOpen(false)}
                   aria-label="Close highlight"
                 >
@@ -251,7 +242,7 @@ export const HeroSection = () => {
                 </button>
               </div>
               <p className="text-[15px] leading-relaxed text-[#303030]">{current.description}</p>
-              <a href="#services" className="pill-btn pill-btn-red mt-5">
+              <a href="#services" className="pill-btn pill-btn-dark mt-5">
                 Explore this service
                 <span className="pill-arrow">
                   <ArrowRight size={14} />
@@ -273,10 +264,10 @@ export const HeroSection = () => {
                       Welcome to a new era of international trade. Our cutting-edge Free Trade Port eliminates export headaches, delays, demurrage, penalties, and tax number requirements.
                     </p>
                     <div className="mt-6 flex flex-wrap gap-2">
-                      <a href="#services" className="pill-btn pill-btn-red">
+                      <a href="#services" className="pill-btn pill-btn-dark">
                         Services overview
                       </a>
-                      <a href="#connect-with-us" className="pill-btn pill-btn-red bg-white/70 border-white/20 text-[#101010] hover:bg-[#101010] hover:text-white transition-colors">
+                      <a href="#connect-with-us" className="pill-btn pill-btn-dark bg-white/70 border-white/20 text-[#101010] hover:bg-[#101010] hover:text-white transition-colors">
                         For the freight request
                       </a>
                     </div>
@@ -284,10 +275,10 @@ export const HeroSection = () => {
                 ) : (
                   <>
                     <div className="flex items-center gap-3 mb-3">
-                      <div className="flex h-9 w-9 items-center justify-center rounded-[4px] bg-[#ff5348] text-white">
+                      <div className="flex h-9 w-9 items-center justify-center rounded-[4px] bg-[#b9d522] text-white">
                         <CurrentIcon size={18} />
                       </div>
-                      <span className="text-[11px] font-bold uppercase tracking-widest text-[#ff5348]">
+                      <span className="text-[11px] font-bold uppercase tracking-widest text-[#b9d522]">
                         Service {activeIndex + 1} of {services.length}
                       </span>
                     </div>
@@ -298,7 +289,7 @@ export const HeroSection = () => {
                       {current.description}
                     </p>
                     <div className="mt-6 flex flex-wrap gap-2">
-                      <a href="#services" className="pill-btn pill-btn-red">
+                      <a href="#services" className="pill-btn pill-btn-dark">
                         Explore this service
                         <span className="pill-arrow">
                           <ArrowRight size={13} />
@@ -306,7 +297,7 @@ export const HeroSection = () => {
                       </a>
                       <button
                         onClick={() => setPopupOpen(true)}
-                        className="pill-btn bg-white/80 border-white/40 hover:bg-[#ff5348] hover:text-white transition-colors text-[#101010] font-semibold"
+                        className="pill-btn bg-white/80 border-white/40 hover:bg-[#b9d522] hover:text-white transition-colors text-[#101010] font-semibold"
                       >
                         Quick facts
                       </button>
@@ -338,7 +329,7 @@ export const HeroSection = () => {
                           : index === activeIndex
                             ? `${videoProgress * 100}%`
                             : '0%',
-                      background: index <= activeIndex ? '#ff5348' : 'rgba(255,255,255,0.5)',
+                      background: index <= activeIndex ? '#ffffff' : 'rgba(255,255,255,0.5)',
                       transition:
                         index === activeIndex
                           ? 'width 50ms linear'
@@ -370,7 +361,7 @@ export const HeroSection = () => {
               </div>
 
               <div className="flex items-center gap-2">
-                <a href="#services" className="pill-btn pill-btn-red hidden shrink-0 md:inline-flex">
+                <a href="#services" className="pill-btn pill-btn-dark hidden shrink-0 md:inline-flex">
                   All services
                   <span className="pill-arrow">
                     <ArrowRight size={14} />

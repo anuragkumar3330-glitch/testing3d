@@ -3,9 +3,9 @@
 
 @theme {
   --font-sans: "Lexend", "Source Sans 3", -apple-system, BlinkMacSystemFont, sans-serif;
-  --color-emons-red: #e30613;
-  --color-emons-coral: #ff5348;
-  --color-emons-peach: #ffb19d;
+  --color-brand-dark: #000000;
+  --color-brand-darker: #b9d522;
+  --color-brand-light: #e5e5e5;
   --color-emons-ink: #101010;
   --color-emons-muted: #565656;
   --color-emons-line: #ece6e1;
@@ -40,7 +40,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #ff5348;
+  background: #b9d522;
   border-radius: 999px;
 }
 
@@ -66,24 +66,24 @@ button {
   transition: transform 220ms ease, background 220ms ease, color 220ms ease, box-shadow 220ms ease;
 }
 
-.pill-btn-red {
-  background: #ff5348;
+.pill-btn-dark {
+  background: #b9d522;
   color: #fff;
-  box-shadow: 0 10px 26px rgba(227, 6, 19, 0.18);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.18);
 }
 
-.pill-btn-red:hover {
-  background: #e30613;
+.pill-btn-dark:hover {
+  background: #9cba15;
   transform: translateY(-1px);
 }
 
-.pill-btn-peach {
-  background: #ffb19d;
+.pill-btn-light {
+  background: #e5e5e5;
   color: #101010;
 }
 
-.pill-btn-peach:hover {
-  background: #ffc0af;
+.pill-btn-light:hover {
+  background: #cccccc;
   transform: translateY(-1px);
 }
 
@@ -106,12 +106,12 @@ button {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: #e30613;
+  color: #000000;
   font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
   padding: 7px 12px;
-  border: 1px solid #f3cbc4;
+  border: 1px solid #dcdcdc;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.74);
 }
@@ -121,7 +121,7 @@ button {
   width: 7px;
   height: 7px;
   border-radius: 999px;
-  background: #ff5348;
+  background: #b9d522;
 }
 
 .emons-glass {
@@ -164,7 +164,7 @@ button {
 
 .plus-marker:hover {
   transform: scale(1.12);
-  background: #ff5348;
+  background: #b9d522;
   color: #fff;
   animation: none;
 }
@@ -182,8 +182,8 @@ button {
   gap: 7px;
   padding: 0 11px;
   border-radius: 4px;
-  background: #ffb19d;
-  color: #e30613;
+  background: #e5e5e5;
+  color: #000000;
   font-size: 13px;
   font-weight: 600;
   transition: transform 220ms ease, background 220ms ease, color 220ms ease;
@@ -191,7 +191,7 @@ button {
 
 .bottom-nav-item.active,
 .bottom-nav-item:hover {
-  background: #ff5348;
+  background: #b9d522;
   color: #fff;
   transform: translateY(-1px);
 }
@@ -215,7 +215,7 @@ button {
 }
 
 .progress-dot.active {
-  background: #ff5348;
+  background: #b9d522;
   transform: translateX(-50%) scale(1.25);
 }
 
@@ -239,9 +239,9 @@ button {
 
 .service-card:hover {
   transform: translateY(-5px);
-  background: #ff5348;
+  background: #b9d522;
   color: #fff;
-  border-color: #ff5348;
+  border-color: #b9d522;
 }
 
 .service-card img {

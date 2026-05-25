@@ -53,10 +53,10 @@ export const NewsSection = () => {
             </h2>
           </div>
           <div className="flex items-center gap-2">
-            <button onClick={prevSlide} className="flex h-10 w-10 items-center justify-center rounded-full bg-[#f5f2ee] text-[#101010] transition-colors hover:bg-[#ff5348] hover:text-white" aria-label="Previous insight">
+            <button onClick={prevSlide} className="flex h-10 w-10 items-center justify-center rounded-full bg-[#f5f2ee] text-[#101010] transition-colors hover:bg-[#b9d522] hover:text-white" aria-label="Previous insight">
               <ChevronLeft size={19} />
             </button>
-            <button onClick={nextSlide} className="flex h-10 w-10 items-center justify-center rounded-full bg-[#f5f2ee] text-[#101010] transition-colors hover:bg-[#ff5348] hover:text-white" aria-label="Next insight">
+            <button onClick={nextSlide} className="flex h-10 w-10 items-center justify-center rounded-full bg-[#f5f2ee] text-[#101010] transition-colors hover:bg-[#b9d522] hover:text-white" aria-label="Next insight">
               <ChevronRight size={19} />
             </button>
           </div>
@@ -76,7 +76,7 @@ export const NewsSection = () => {
                 OSV FTWZ is designed for companies handling sensitive cargo, high-value goods and complex import cycles where compliance and timing cannot slip.
               </p>
             </div>
-            <a href="#connect-with-us" className="pill-btn pill-btn-red mt-10 w-fit">
+            <a href="#connect-with-us" className="pill-btn pill-btn-dark mt-10 w-fit">
               Read more
               <span className="pill-arrow">
                 <ArrowRight size={14} />
@@ -91,7 +91,7 @@ export const NewsSection = () => {
               key={item.title}
               onClick={() => setCurrentSlide(index)}
               className={`h-2.5 rounded-full transition-all duration-200 ${
-                index === currentSlide ? 'w-10 bg-[#ff5348]' : 'w-2.5 bg-[#e3d8cf] hover:bg-[#ffb19d]'
+                index === currentSlide ? 'w-10 bg-[#b9d522]' : 'w-2.5 bg-[#e3d8cf] hover:bg-[#cccccc]'
               }`}
               aria-label={`Show ${item.category}`}
             />

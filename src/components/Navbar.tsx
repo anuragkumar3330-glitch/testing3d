@@ -21,7 +21,7 @@ export const Navbar = () => {
           scrolled ? 'bg-[#101010]/82 shadow-[0_14px_40px_rgba(0,0,0,0.18)] backdrop-blur-xl' : 'bg-transparent'
         }`}
       >
-        <a href="#" className="flex h-11 min-w-[112px] items-center justify-center rounded-[4px] bg-[#e30613] px-5 text-white shadow-[0_12px_28px_rgba(0,0,0,0.16)] transition-transform duration-300 hover:-translate-y-0.5">
+        <a href="#" className="flex h-11 min-w-[112px] items-center justify-center rounded-[4px] bg-[#000000] px-5 text-white shadow-[0_12px_28px_rgba(0,0,0,0.16)] transition-transform duration-300 hover:-translate-y-0.5">
           <span className="text-[22px] font-extrabold leading-none">OSV</span>
         </a>
 
@@ -43,13 +43,13 @@ export const Navbar = () => {
           <button className="flex h-10 w-14 items-center justify-center rounded-[4px] bg-white/14 text-white backdrop-blur-md transition-colors duration-200 hover:bg-white/24" aria-label="Insights">
             <Lightbulb size={22} />
           </button>
-          <a href="#connect-with-us" className="pill-btn pill-btn-red">
+          <a href="#connect-with-us" className="pill-btn pill-btn-dark">
             Get A Callback
             <span className="pill-arrow">
               <ArrowRight size={14} />
             </span>
           </a>
-          <a href="#customer-login" className="pill-btn pill-btn-peach">
+          <a href="#customer-login" className="pill-btn pill-btn-dark">
             Customer login
             <span className="pill-arrow bg-white/35">
               <ArrowRight size={14} />
@@ -61,7 +61,7 @@ export const Navbar = () => {
         </div>
 
         <button
-          className="flex h-11 w-11 items-center justify-center rounded-[4px] bg-[#ff5348] text-white shadow-lg md:hidden"
+          className="flex h-11 w-11 items-center justify-center rounded-[4px] bg-[#b9d522] text-white shadow-lg md:hidden"
           onClick={() => setMobileMenuOpen((open) => !open)}
           aria-label="Toggle menu"
         >
@@ -83,15 +83,15 @@ export const Navbar = () => {
               onClick={() => setMobileMenuOpen(false)}
             >
               {item}
-              <ArrowRight size={20} className="text-[#ff5348]" />
+              <ArrowRight size={20} className="text-[#b9d522]" />
             </a>
           ))}
         </div>
         <div className="mt-8 grid gap-3">
-          <a href="#connect-with-us" className="pill-btn pill-btn-red w-full">
+          <a href="#connect-with-us" className="pill-btn pill-btn-dark w-full">
             Get A Callback
           </a>
-          <a href="#customer-login" className="pill-btn pill-btn-peach w-full">
+          <a href="#customer-login" className="pill-btn pill-btn-dark w-full">
             Customer login
           </a>
         </div>
