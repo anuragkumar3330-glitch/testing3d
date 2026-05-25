@@ -382,12 +382,6 @@ export const HeroSection = () => {
                       </p>
                     </div>
                     <div className="flex shrink-0 flex-wrap items-center gap-3">
-                      <button
-                        onClick={() => setPopupOpen(true)}
-                        className="pill-btn bg-white/80 border-white/40 hover:bg-[#b9d522] hover:text-white transition-colors text-[#101010] font-semibold shadow-md"
-                      >
-                        Quick facts
-                      </button>
                       <a href="#services" className="pill-btn pill-btn-dark shadow-md">
                         Explore this service
                         <span className="pill-arrow">
@@ -454,12 +448,6 @@ export const HeroSection = () => {
               </div>
 
               <div className="flex items-center gap-2">
-                <a href="#services" className="pill-btn pill-btn-dark hidden shrink-0 md:inline-flex">
-                  All services
-                  <span className="pill-arrow">
-                    <ArrowRight size={14} />
-                  </span>
-                </a>
               </div>
             </div>
           </div>
