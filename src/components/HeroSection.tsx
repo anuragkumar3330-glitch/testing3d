@@ -19,6 +19,14 @@ const services = [
       'World-class FTWZ storage across Delhi NCR, Mumbai, Gujarat and Chennai with safe handling for high-value cargo.',
   },
   {
+    id: 'road',
+    label: 'Road',
+    icon: Truck,
+    title: 'Inland transportation',
+    description:
+      'Seamless road freight and inland transportation connecting all major ports and economic zones.',
+  },
+  {
     id: 'sea',
     label: 'Sea',
     icon: Ship,
@@ -33,14 +41,6 @@ const services = [
     title: 'Global movement',
     description:
       'Air freight support for time-sensitive shipments with end-to-end documentation and visibility.',
-  },
-  {
-    id: 'road',
-    label: 'Road',
-    icon: Truck,
-    title: 'Inland transportation',
-    description:
-      'Seamless road freight and inland transportation connecting all major ports and economic zones.',
   },
   {
     id: 'digital',
