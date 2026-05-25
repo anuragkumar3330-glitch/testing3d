@@ -29,23 +29,23 @@ export const WelcomeSection = () => {
       <div className="absolute top-[10%] right-[30%] text-[#101010]/20 pointer-events-none">+</div>
       <div className="absolute bottom-[40%] right-[15%] text-[#101010]/20 pointer-events-none">+</div>
 
-      <div className="mx-auto grid max-w-[1400px] grid-cols-1 gap-16 lg:grid-cols-2 lg:items-end">
+      <div className="mx-auto grid max-w-[1400px] grid-cols-1 gap-12 lg:gap-16 lg:grid-cols-2 lg:items-center">
         {/* Left Column: Massive Heading */}
-        <div className="reveal opacity-0 relative z-10 pb-0 lg:pb-12">
-          <h2 className="text-[48px] md:text-[64px] lg:text-[76px] font-semibold leading-[1.05] tracking-tight text-[#101010]">
+        <div className="reveal opacity-0 relative z-10">
+          <h2 className="text-[48px] md:text-[56px] lg:text-[70px] font-semibold leading-[1.08] tracking-tight text-[#101010] max-w-[600px]">
             50 year old legacy.<br />Nationwide presence.<br />Free trade, simplified.
           </h2>
         </div>
 
         {/* Right Column: Truck + Buttons + Text */}
-        <div className="reveal opacity-0 flex flex-col gap-10 relative z-10">
+        <div className="reveal opacity-0 flex flex-col gap-8 relative z-10 mt-8 lg:mt-0">
           
-          {/* Truck Image - Overlapping visually like emons.de */}
-          <div className="relative w-full mb-8 lg:mb-0 lg:aspect-[4/3] flex justify-end">
+          {/* Truck Image - In document flow but breaking out on the right */}
+          <div className="relative w-full flex justify-end">
             <img 
               src="/images/img.png" 
               alt="OSV FTWZ Truck" 
-              className="relative lg:absolute lg:-right-20 lg:top-0 w-[110%] sm:w-[90%] lg:w-[120%] max-w-none object-contain drop-shadow-2xl translate-x-5 lg:translate-x-0" 
+              className="w-[110%] sm:w-[90%] lg:w-[115%] max-w-none object-contain drop-shadow-2xl -mr-[5%] sm:mr-0 lg:-mr-[10%]" 
             />
           </div>
           
