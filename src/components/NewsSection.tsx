@@ -338,20 +338,6 @@ export const NewsSection = () => {
             </h2>
           </div>
 
-          {/* Contact Expert CTA - Placed ABOVE the FAQs with gap */}
-          <div className="reveal opacity-0 mb-12 text-left max-w-[860px]">
-            <p className="text-[15px] font-semibold text-[#b9d522]">
-              Looking for answers to particular questions?{' '}
-              <a 
-                href="#connect-with-us" 
-                className="underline transition-colors hover:text-[#d4f02a]"
-              >
-                Contact
-              </a>{' '}
-              our experts now.
-            </p>
-          </div>
-
           {/* Accordion container - left-aligned, maximum 860px width, no separator lines, only gap */}
           <div className="reveal opacity-0 flex flex-col gap-6 max-w-[860px] w-full">
             {faqs.map((faq, idx) => {
@@ -398,6 +384,20 @@ export const NewsSection = () => {
                 </div>
               );
             })}
+
+            {/* Contact Expert CTA - Placed below last question with same gaping */}
+            <div className="text-left pt-2">
+              <p className="text-[15px] font-semibold text-[#b9d522]">
+                Looking for answers to particular questions?{' '}
+                <a 
+                  href="#connect-with-us" 
+                  className="underline transition-colors hover:text-[#d4f02a]"
+                >
+                  Contact
+                </a>{' '}
+                our experts now.
+              </p>
+            </div>
           </div>
 
 
