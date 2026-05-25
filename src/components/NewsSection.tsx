@@ -387,7 +387,7 @@ export const NewsSection = () => {
           </div>
 
           {/* Contact Expert CTA - Left Aligned in green to match screenshot exactly */}
-          <div className="reveal opacity-0 mt-12 text-left pt-6 max-w-[860px]">
+          <div className="reveal opacity-0 mt-20 text-left pt-6 max-w-[860px]">
             <p className="text-[15px] font-semibold text-[#b9d522]">
               Looking for answers to particular questions?{' '}
               <a 
