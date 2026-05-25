@@ -55,8 +55,8 @@ export const HeroSection = () => {
   const currentVideoTime = useRef(0);
   const targetVideoTime = useRef(0);
   const videoDuration = useRef(10); // Default, updated on load
-  const requestRef = useRef<number>();
-  const lastTimeRef = useRef<number>();
+  const requestRef = useRef<number | undefined>(undefined);
+  const lastTimeRef = useRef<number | undefined>(undefined);
   const lastInteractionTime = useRef<number>(0);
 
   const render = useCallback((time: number) => {
