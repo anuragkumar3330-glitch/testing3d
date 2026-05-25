@@ -1,11 +1,11 @@
-import { ArrowRight, Box, Plane, Ship, Truck, Warehouse, X } from 'lucide-react';
+import { ArrowRight, Box, FileText, Plane, Ship, Truck, Warehouse, X } from 'lucide-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 const services = [
   {
-    id: 'road',
+    id: 'customs',
     label: 'Customs',
-    icon: Truck,
+    icon: FileText,
     title: 'Zero red tape',
     description:
       'Swift customs clearance, non-interference and expert support for Indian import and export paperwork.',
@@ -33,6 +33,14 @@ const services = [
     title: 'Global movement',
     description:
       'Air freight support for time-sensitive shipments with end-to-end documentation and visibility.',
+  },
+  {
+    id: 'road',
+    label: 'Road',
+    icon: Truck,
+    title: 'Inland transportation',
+    description:
+      'Seamless road freight and inland transportation connecting all major ports and economic zones.',
   },
   {
     id: 'digital',
@@ -413,7 +421,7 @@ export const HeroSection = () => {
                       background: index <= activeIndex ? '#ffffff' : 'rgba(255,255,255,0.5)',
                       transition:
                         index === activeIndex
-                          ? 'width 50ms linear'
+                          ? 'none'
                           : 'width 200ms ease, background 200ms ease',
                     }}
                   />
