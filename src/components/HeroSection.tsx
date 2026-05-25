@@ -341,18 +341,18 @@ export const HeroSection = () => {
           )}
 
           {/* Info card — bottom left */}
-          <div className="absolute bottom-[86px] left-5 z-10 w-[min(418px,calc(100vw-40px))] rounded-[5px] md:bottom-[92px]">
+          <div className="absolute bottom-[86px] left-5 z-10 w-[min(360px,calc(100vw-40px))] rounded-[5px] md:bottom-[92px]">
             <div key={activeIndex} className="animate-fade-in">
               <div className="emons-glass rounded-[5px] p-4 sm:p-5">
                 {activeIndex === 0 ? (
                   <>
-                    <h1 className="text-[32px] font-medium leading-[1.05] text-[#101010] sm:text-[38px]">
+                    <h1 className="text-[26px] font-semibold leading-[1.1] text-[#101010] sm:text-[28px]">
                       OSV FTWZs — India's Premier Free Trade Zone
                     </h1>
-                    <p className="mt-4 text-[14px] font-normal leading-[1.55] text-[#303030] sm:text-[15px]">
+                    <p className="mt-3 text-[13px] font-normal leading-[1.5] text-[#303030] sm:text-[14px]">
                       Welcome to a new era of international trade. Our cutting-edge Free Trade Port eliminates export headaches, delays, demurrage, penalties, and tax number requirements.
                     </p>
-                    <div className="mt-6 flex flex-wrap gap-2">
+                    <div className="mt-5 flex flex-wrap gap-2">
                       <a href="#services" className="pill-btn pill-btn-dark">
                         Services overview
                       </a>
@@ -371,13 +371,13 @@ export const HeroSection = () => {
                         Service {activeIndex + 1} of {services.length}
                       </span>
                     </div>
-                    <h2 className="text-[28px] font-semibold leading-[1.1] text-[#101010] sm:text-[32px]">
+                    <h2 className="text-[22px] font-semibold leading-[1.15] text-[#101010] sm:text-[26px]">
                       {current.title}
                     </h2>
-                    <p className="mt-3 text-[14px] font-normal leading-[1.55] text-[#303030] sm:text-[15px]">
+                    <p className="mt-2 text-[13px] font-normal leading-[1.5] text-[#303030] sm:text-[14px]">
                       {current.description}
                     </p>
-                    <div className="mt-6 flex flex-wrap gap-2">
+                    <div className="mt-5 flex flex-wrap gap-2">
                       <a href="#services" className="pill-btn pill-btn-dark">
                         Explore this service
                         <span className="pill-arrow">
