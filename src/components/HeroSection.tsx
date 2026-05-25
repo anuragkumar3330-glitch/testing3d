@@ -398,7 +398,7 @@ export const HeroSection = () => {
           {/* Bottom bar: progress + navigation */}
           <div className="absolute bottom-5 left-5 right-5 z-10">
             {/* Segmented progress bar */}
-            <div className="flex gap-1.5 mb-4">
+            <div className="flex gap-1.5 mb-8">
               {services.map((_, index) => (
                 <button
                   key={index}
